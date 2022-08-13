@@ -1,0 +1,6 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Thomas Grusz
+	email = thomasgrusz@gmail.com
+[alias]
+	l = log --graph --decorate --oneline --all
