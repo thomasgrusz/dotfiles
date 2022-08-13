@@ -77,3 +77,5 @@ alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall F
 # export LSCOLORS=CxFxBxDxBxegedabagacad
 # export LSCOLORS=exfxcxdxbxegedabagacad 
 
+source ~/.git-prompt.sh
+PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '

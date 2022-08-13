@@ -36,3 +36,14 @@ whiteFG="%F{white}"
 # Default prompt
 PROMPT="%B$yellowFG%n$cyanFG@$yellowFG%m$whiteFG [ $greenFG%1~ $whiteFG] $resetColor %#%b " 
 RPROMPT="%T"
+
+# Load tab-completion and prompt support for Git
+autoload -Uz compinit && compinit
+
+# autoload -Uz vcs_info
+# precmd_vcs_info() { vcs_info }
+# precmd_functions+=( precmd_vcs_info )
+# setopt prompt_subst
+# RPROMPT='${vcs_info_msg_0_}'            # This is for right side prompt support
+# # PROMPT='${vcs_info_msg_0_}%# '        # This is for left side prompt support
+# zstyle ':vcs_info:git:*' formats '%b'
