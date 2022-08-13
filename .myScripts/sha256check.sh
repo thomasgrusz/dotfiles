@@ -11,15 +11,23 @@ if [[ $MAJOR -lt 4 ]] && [[ $MINOR -lt 4 ]]; then
 	exit
 fi
 
-# Start Sha256 test
-echo -e "\nSha256 Checksum Test"
-echo -e "--------------------\n"
-
 # Load filenames from current working directory into array
 # The readarray -d feature is the one requiring bash version > 4.4
 # The empty string '' means that the elements are NULL delimited comming from the find command
 readarray -d '' LIST_OF_FILENAMES < <(find * -maxdepth 0 -type f -print0)
 array_size=${#LIST_OF_FILENAMES[@]}
+
+# If there are no files for e checksum then exit the program
+if [[ $array_size -eq 0 ]]; then
+	echo
+	echo "There are no suitable files for a checksum test - Program terminated."
+	echo
+	exit
+fi
+
+# Start Sha256 test
+echo -e "\nSha256 Checksum Test"
+echo -e "--------------------\n"
 
 # Select a file
 # The select construct allows easy generation of menus
