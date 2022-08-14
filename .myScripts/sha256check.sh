@@ -1,12 +1,13 @@
-#!/usr/local/bin/bash
+# #!/usr/local/bin/bash
 # This script requires bash 4.4 or higher
 
 #Check if bash version is 4.4 or higher, exit if not
 MAJOR=$(echo $BASH_VERSION | cut -d "." -f 1)
 MINOR=$(echo $BASH_VERSION | cut -d "." -f 2)
+PATCH=$(echo ${BASH_VERSION%'('*} | cut -d "." -f 3)
 if [[ $MAJOR -lt 4 ]] && [[ $MINOR -lt 4 ]]; then
 	echo
-	echo "Your version of Bash is $MAJOR.$MINOR, but needs to be 4.4 or higher - Program terminated."
+	echo "Your version of Bash is $MAJOR.$MINOR.$PATCH, but needs to be 4.4 or higher - Program terminated."
 	echo
 	exit
 fi
