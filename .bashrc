@@ -19,11 +19,40 @@ alias d='deactivate'
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
-# Ansi colors
-brightYellowFG="[\e93m"
+# Ansi color explanation
+# brightYellow "[\e93m"
+# cyan "[\e63m"
+# green "[\e32m"
+# reset colores "\e[0m"
 
+# Define the Prompt
+# -----------------
+# Load official git prompt support for branch and (dirty/clean) state indication
 source ~/.git-prompt.sh
-PS1='\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[95m$(__git_ps1 " (%s)")\e[0m \$ '
+
+# Indicate status of working directory (*), stage area (+)
+GIT_PS1_SHOWDIRTYSTATE=1
+#Indicate stash status ($)
+GIT_PS1_SHOWSTASHSTATE=1
+#Indicate untracked files (%)
+GIT_PS1_SHOWUNTRACKEDFILES=1
+# Indicate difference between HEAD and upstream repo
+GIT_PS1_SHOWUPSTREAM="auto, verbose, name"
+# Separator symbol between branch and status (default: SP)
+GIT_PS1_STATESEPARATOR="|"
+# Show ? to indicate sparse repo
+#GIT_PS1_COMPRESSSPARSESTATE
+# Do not indicate if repo is sparse
+#GIT_PS1_OMITSPARSESTATE
+# Info on headless checked out commits (contains, branch, describe, tag, default)
+#GIT_PS1_DESCRIBE_STYLE
+# Show colored hints for dirty state
+GIT_PS1_SHOWCOLORHINTS=1
+# Do not show anything if current working directory is ignored by git
+#GIT_PS1_HIDE_IF_PWD_IGNORED
+
+#PS1='\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[95m$(__git_ps1 " (%s)")\e[0m \$ '
+PROMPT_COMMAND='__git_ps1 "\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[0m" "\\\$ "'
 
 # ------------------------
 # Explanations and Legends
