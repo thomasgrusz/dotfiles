@@ -19,6 +19,12 @@ alias d='deactivate'
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
+# Ansi colors
+brightYellowFG="[\e93m"
+
+source ~/.git-prompt.sh
+PS1='\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[95m$(__git_ps1 " (%s)")\e[0m \$ '
+
 # ------------------------
 # Explanations and Legends
 # ------------------------
@@ -76,6 +82,3 @@ alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall F
 # export LSCOLORS=cxfxbxdxbxegedabagacad
 # export LSCOLORS=CxFxBxDxBxegedabagacad
 # export LSCOLORS=exfxcxdxbxegedabagacad 
-
-source ~/.git-prompt.sh
-PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '

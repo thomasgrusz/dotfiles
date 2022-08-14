@@ -28,18 +28,27 @@ resetColor="%{$reset_color%}"
 #whiteFG="%{$fg[white]%}"
 
 # Ansi Colors
-yellowFG="%F{11}"   # bright yellow
+brightYellowFG="%F{11}"
+brightMagentaFG="%F{13}"
+brightCyanFG="%F{14}"
 cyanFG="%F{cyan}"
+magentaFG="%F{magenta}"
 greenFG="%F{green}"
 whiteFG="%F{white}"
 
 # Default prompt
-PROMPT="%B$yellowFG%n$cyanFG@$yellowFG%m$whiteFG [ $greenFG%1~ $whiteFG] $resetColor %#%b " 
+#PROMPT="%B$brightYellowFG%n$cyanFG@$brightYellowFG%m$whiteFG [ $greenFG%1~ $whiteFG] $resetColor %#%b " 
 RPROMPT="%T"
 
-# Load tab-completion and prompt support for Git
+# Load official git prompt support for branch and (dirty/clean) state indication
+source ~/.git-prompt.sh
+setopt PROMPT_SUBST ; PS1='$brightYellowFG%n$cyanFG@$brightYellowFG%m$whiteFG [ $greenFG%1~ $whiteFG]$brightMagentaFG$(__git_ps1 " (%s)") $whiteFG$resetColor %# '
+
+
+# Load zsh specific tab-completion for git
 autoload -Uz compinit && compinit
 
+# Load zsh specific prompt support for Git
 # autoload -Uz vcs_info
 # precmd_vcs_info() { vcs_info }
 # precmd_functions+=( precmd_vcs_info )
