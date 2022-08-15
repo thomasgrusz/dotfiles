@@ -2,6 +2,9 @@
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
+# History control - leading space, duplicates not recorded
+HISTCONTROL=ignoreboth
+
 # Clear terminal window and empty buffer
 alias c="clear && printf '\e[3J'"
 #alias cat="cat -n"
