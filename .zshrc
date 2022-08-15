@@ -51,14 +51,15 @@ GIT_PS1_SHOWCOLORHINTS=1
 # Do not show anything if current working directory is ignored by git
 #GIT_PS1_HIDE_IF_PWD_IGNORED
 
+# Define the prompt
 # This is the regular prompt setting
-#PS1='%F{11}%n%F{cyan}@%F{11}%m%F{white} [ %F{green}%1~ %F{white}]%F{13}$(__git_ps1 " (%s)")%f %# '
+PS1='%F{11}%n%F{cyan}@%F{11}%m%F{white} [ %F{green}%1~ %F{white}] $(__git_ps1 " (%s)")%f %# '
 
 # Set right prompt to time
 RPROMPT="%T" 
 
 # Set pre-prompt command, this is faster than setting PS1 directly
-precmd () { __git_ps1 "%F{11}%n%F{cyan}@%F{11}%m%f" "%F{white} [ %F{green}%1~%f ] %# " "|%s" }
+#precmd () { __git_ps1 "%F{11}%n%F{cyan}@%F{11}%m%f" "%F{white} [ %F{green}%1~%f ] %# " "|%s" }
 
 # ==========================
 # Ansi color explanations

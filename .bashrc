@@ -19,8 +19,6 @@ alias d='deactivate'
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
-# Define the Prompt
-# -----------------
 # Load official git prompt support for branch and (dirty/clean) state indication
 source ~/.git-prompt.sh
 
@@ -48,8 +46,9 @@ GIT_PS1_SHOWCOLORHINTS=1
 #GIT_PS1_HIDE_IF_PWD_IGNORED
 
 # Define prompt
-#PS1='\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[95m$(__git_ps1 " (%s)")\e[0m \$ '
-PROMPT_COMMAND='__git_ps1 "\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[0m" "\\\$ "'
+#PS1='\h:\W \u\$ '
+PS1='\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ]\[\e[95m\]$(__git_ps1 " (%s)")\[\e[0m\] \$ '
+#PROMPT_COMMAND='__git_ps1 "\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ]" "\\\$ "'
 
 # ***********************************************************
 
@@ -57,9 +56,11 @@ PROMPT_COMMAND='__git_ps1 "\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[0m" 
 # Ansi color explanation
 # ------------------------
 # brightYellow "[\e93m"
-# cyan "[\e63m"
+# brightMagenta "[\e95m"
+# cyan "[\e36m"
 # green "[\e32m"
 # reset colores "\e[0m"
+# The color codes and reset MUST be wrapped in `\[' and `\]', otherwise the prompt behaves strangely.
 
 # ------------------------
 # ls options
