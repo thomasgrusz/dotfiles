@@ -7,6 +7,7 @@ alias c="clear && printf '\e[3J'"
 alias ls="ls -F"
 alias ll="ls -lhF"
 alias la="ls -lhaF"
+alias grep="grep --color=auto"
 
 # Python Virtual Environment related
 alias cve='python3 -m venv .venv'
@@ -18,20 +19,17 @@ alias mypath="tr ':' '\n' <<< $PATH"
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
-# Ansi color explanations
-#   brightYellowFG    %F{11}
-#   brightMagentaFG   %F{13}
-#   brightCyanFG      %F{14}
-#   colorReset        %f
+# Load zsh specific tab-completion for git
+autoload -Uz compinit && compinit
 
 # Load official git prompt support for branch and (dirty/clean) state indication
 source ~/.git-prompt.sh
 
-# Define prompts
-# --------------
 # Enable prompt expansion
 setopt PROMPT_SUBST
 
+# Git prompt options
+# ==================
 # Indicate status of working directory (*), stage area (+)
 GIT_PS1_SHOWDIRTYSTATE=1
 #Indicate stash status ($)
@@ -60,8 +58,12 @@ GIT_PS1_SHOWCOLORHINTS=1
 RPROMPT="%T" 
 
 # Set pre-prompt command, this is faster than setting PS1 directly
-#precmd () { __git_ps1 "%F{11}%n%F{cyan}@%F{11}%m%F{13}" "%F{white} [ %F{green}%1~%f ] %# " "|%s" }
 precmd () { __git_ps1 "%F{11}%n%F{cyan}@%F{11}%m%f" "%F{white} [ %F{green}%1~%f ] %# " "|%s" }
 
-# Load zsh specific tab-completion for git
-autoload -Uz compinit && compinit
+# ==========================
+# Ansi color explanations
+#   brightYellowFG    %F{11}
+#   brightMagentaFG   %F{13}
+#   brightCyanFG      %F{14}
+#   colorReset        %f
+# ==========================

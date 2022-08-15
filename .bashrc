@@ -2,13 +2,13 @@
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
-
 # Clear terminal window and empty buffer
 alias c="clear && printf '\e[3J'"
 #alias cat="cat -n"
 alias ll="ls -lh"
 alias la="ls -lha"
 alias mypath="tr ':' '\n' <<< $PATH"
+alias grep="grep --color=auto"
 
 # Python Virtual Environment related
 alias cve='python3 -m venv .venv'
@@ -19,17 +19,13 @@ alias d='deactivate'
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
-# Ansi color explanation
-# brightYellow "[\e93m"
-# cyan "[\e63m"
-# green "[\e32m"
-# reset colores "\e[0m"
-
 # Define the Prompt
 # -----------------
 # Load official git prompt support for branch and (dirty/clean) state indication
 source ~/.git-prompt.sh
 
+# GIT prompt options
+# ------------------
 # Indicate status of working directory (*), stage area (+)
 GIT_PS1_SHOWDIRTYSTATE=1
 #Indicate stash status ($)
@@ -51,21 +47,32 @@ GIT_PS1_SHOWCOLORHINTS=1
 # Do not show anything if current working directory is ignored by git
 #GIT_PS1_HIDE_IF_PWD_IGNORED
 
+# Define prompt
 #PS1='\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[95m$(__git_ps1 " (%s)")\e[0m \$ '
 PROMPT_COMMAND='__git_ps1 "\e[93m\u\e[36m@\e[93m\h \e[0m[ \e[32m\W\e[0m ]\e[0m" "\\\$ "'
 
+# ***********************************************************
+
 # ------------------------
-# Explanations and Legends
+# Ansi color explanation
+# ------------------------
+# brightYellow "[\e93m"
+# cyan "[\e63m"
+# green "[\e32m"
+# reset colores "\e[0m"
+
 # ------------------------
 # ls options
+# ------------------------
 # -l    show long format
 # -a    show hidden files
 # -A    almost like -a but without . and ..
 # -h    human readable file size (KB, MB etc instead of Blocks)
 # -F    add one char of */=>@| to entries
 
-# ********* SET COLOR FOR ls COMMAND **********
-
+# ------------------------
+# Color for 'ls' command
+# ------------------------
 #export CLICOLOR=1
 #export LSCOLORS=gxfxcxdxbxegedabagacad 
 # gx fx cx dx bx eg ed ab ag ac ad 

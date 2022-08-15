@@ -1,11 +1,10 @@
 #!/bin/zsh
-for COLOR in {0..255} 
+
+local style
+style="38;5"
+for color in {0..255} 
 do
-    for STYLE in "38;5"
-    do 
-        TAG="\033[${STYLE};${COLOR}m"
-        STR="${STYLE};${COLOR}"
-        echo "${TAG}${STR}${NONE}  "
-    done
-    echo
+    tag="\033[${style};${color}m"
+    string="${style};${color}"
+    echo "${tag}${string}"
 done

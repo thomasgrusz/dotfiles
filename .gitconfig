@@ -4,3 +4,5 @@
 	email = thomasgrusz@gmail.com
 [alias]
 	l = log --graph --decorate --oneline --all
+[core]
+	editor = vim
