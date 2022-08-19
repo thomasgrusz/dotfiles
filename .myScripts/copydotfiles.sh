@@ -2,7 +2,7 @@
 
 local base_dir
 local dotfile_location
-base_dir="/Users/thomasgrusz/Documents/Computer Science/iMac 25"
+base_dir="/Users/thomasgrusz/computer science/iMac 25"
 dotfile_location="${base_dir}/dotfiles"
 
 if [[ ! -e ${dotfile_location} ]]; then
