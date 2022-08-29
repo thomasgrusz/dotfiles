@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-local style
 style="38;5"
 for color in {0..255} 
 do

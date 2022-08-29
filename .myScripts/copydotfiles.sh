@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-local base_dir
-local dotfile_location
 base_dir="/Users/thomasgrusz/computer science/iMac 25"
 dotfile_location="${base_dir}/dotfiles"
 
