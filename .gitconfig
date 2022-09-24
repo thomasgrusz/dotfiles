@@ -6,3 +6,8 @@
 	l = log --graph --decorate --oneline --all
 [core]
 	editor = vim
+[color]
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto

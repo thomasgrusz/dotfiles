@@ -18,7 +18,7 @@ alias s='source .venv/bin/activate'
 alias d='deactivate'
 alias mypath="tr ':' '\n' <<< $PATH"
 
-# macOS Apps
+# macOS
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 
@@ -55,7 +55,6 @@ GIT_PS1_SHOWCOLORHINTS=1
 #GIT_PS1_HIDE_IF_PWD_IGNORED
 
 # Define the prompt
-# This is the regular prompt setting
 PS1='%F{11}%n%F{cyan}@%F{11}%m%F{white} [ %F{green}%1~ %F{white}] $(__git_ps1 " (%s)")%f %# '
 
 # Set right prompt to time
@@ -71,3 +70,8 @@ RPROMPT="%T"
 #   brightCyanFG      %F{14}
 #   colorReset        %f
 # ==========================
+#
+# My brightYellowFG ANSI color is defined to be #EAB16B (light brown) in the terminal preferences.
+
+TK_SILENCE_DEPRECATION=1
+export TK_SILENCE_DEPRECATION
