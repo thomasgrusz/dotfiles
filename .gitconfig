@@ -1,9 +1,12 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Thomas Grusz
-	email = thomasgrusz@gmail.com
+	email = thomas.grusz@gmail.com
 [alias]
-	l = log --graph --decorate --oneline --all
+	lo = log --oneline
+	loa = log --graph --decorate --oneline --all
+	ac = !git add -A && git commit -m
+	pruneupstream = !git remote update --prune && git branch -vv | awk \"/: gone]/{print $1}\" | xargs git branch -d
 [core]
 	editor = vim
 [color]
@@ -11,3 +14,8 @@
 	branch = auto
 	interactive = auto
 	diff = auto
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = thomas.grusz@gmail.com
+	smtpServerPort = 587

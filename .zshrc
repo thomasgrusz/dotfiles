@@ -1,77 +1,111 @@
-export CLICOLOR=1
-export LSCOLORS=gxfxcxdxbxegedabagacad
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# History control - leading space suppresses recording 
-setopt HIST_IGNORE_SPACE
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Clear terminal window and empty buffer
-alias c="clear && printf '\e[3J'"
-#alias cat="cat -n"
-alias ls="ls -F"
-alias ll="ls -lhF"
-alias la="ls -lhaF"
-alias grep="grep --color=auto"
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
-# Python Virtual Environment related
-alias cve='python3 -m venv .venv'
-alias s='source .venv/bin/activate'
-alias d='deactivate'
-alias mypath="tr ':' '\n' <<< $PATH"
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# macOS
-alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
-alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# Load zsh specific tab-completion for git
-autoload -Uz compinit && compinit
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# Load official git prompt support for branch and (dirty/clean) state indication
-source ~/.git-prompt.sh
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-# Enable prompt expansion
-setopt PROMPT_SUBST
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-# Git prompt options
-# ==================
-# Indicate status of working directory (*), stage area (+)
-GIT_PS1_SHOWDIRTYSTATE=1
-#Indicate stash status ($)
-GIT_PS1_SHOWSTASHSTATE=1
-#Indicate untracked files (%)
-GIT_PS1_SHOWUNTRACKEDFILES=1
-# Indicate difference between HEAD and upstream repo
-GIT_PS1_SHOWUPSTREAM="auto, verbose, name"
-# Separator symbol between branch and status (default: SP)
-GIT_PS1_STATESEPARATOR="|"
-# Show ? to indicate sparse repo
-#GIT_PS1_COMPRESSSPARSESTATE
-# Do not indicate if repo is sparse
-#GIT_PS1_OMITSPARSESTATE
-# Info on headless checked out commits (contains, branch, describe, tag, default)
-#GIT_PS1_DESCRIBE_STYLE
-# Show colored hints for dirty state
-GIT_PS1_SHOWCOLORHINTS=1
-# Do not show anything if current working directory is ignored by git
-#GIT_PS1_HIDE_IF_PWD_IGNORED
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
 
-# Define the prompt
-PS1='%F{11}%n%F{cyan}@%F{11}%m%F{white} [ %F{green}%1~ %F{white}] $(__git_ps1 " (%s)")%f %# '
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
-# Set right prompt to time
-RPROMPT="%T" 
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-# Set pre-prompt command, this is faster than setting PS1 directly
-#precmd () { __git_ps1 "%F{11}%n%F{cyan}@%F{11}%m%f" "%F{white} [ %F{green}%1~%f ] %# " "|%s" }
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-# ==========================
-# Ansi color explanations
-#   brightYellowFG    %F{11}
-#   brightMagentaFG   %F{13}
-#   brightCyanFG      %F{14}
-#   colorReset        %f
-# ==========================
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
 #
-# My brightYellowFG ANSI color is defined to be #EAB16B (light brown) in the terminal preferences.
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-TK_SILENCE_DEPRECATION=1
-export TK_SILENCE_DEPRECATION
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

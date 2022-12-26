@@ -11,5 +11,6 @@ cp ~/.zshrc ${dotfile_location}
 cp ~/.bashrc ${dotfile_location}
 cp ~/.gitconfig ${dotfile_location}
 cp ~/.vimrc ${dotfile_location}
+cp ~/.vimrc.plug ${dotfile_location}
 cp ~/.git-prompt.sh ${dotfile_location}
 cp -r ~/.myScripts ${dotfile_location}

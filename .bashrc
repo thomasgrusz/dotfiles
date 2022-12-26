@@ -4,6 +4,7 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 
 # History control - leading space, duplicates not recorded
 HISTCONTROL=ignoreboth
+HISTTIMEFORMAT='%Y-%m-%d %T '
 
 # Clear terminal window and empty buffer
 alias c="clear && printf '\e[3J'"
@@ -56,14 +57,19 @@ PS1='\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ]\[\e[
 # ------------------------
 # Ansi color explanation
 # ------------------------
-# brightYellow "[\e93m"
-# brightMagenta "[\e95m"
-# cyan "[\e36m"
-# green "[\e32m"
+# brightYellow "\e[93m"
+# brightMagenta "\e[95m"
+# cyan "\e[36m"
+# green "\e[32m"
 # reset colores "\e[0m"
-# The color codes and reset MUST be wrapped in `\[' and `\]', otherwise the prompt behaves strangely.
+# The color codes and reset MUST be wrapped in `\[' and `\]', indicating a block of non-printable characters,  otherwise the prompt behaves strangely.
 
 # ------------------------
+# 256 color explanation
+# ------------------------
+# https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+# ------------------------
+
 # ls options
 # ------------------------
 # -l    show long format
