@@ -1,0 +1,18 @@
+call plug#begin()
+
+" Fugitive Vim GitHub Wrapper
+Plug 'tpope/vim-fugitive'
+
+" Asynchronous Lint Engine (ALE)
+Plug 'dense-analysis/ale'
+
+" NERDTREE
+Plug 'scrooloose/nerdtree'
+
+" Fuzzy finder
+Plug 'junegunn/fzf.vim'
+
+" rust syntax highlighting
+Plug 'rust-lang/rust.vim'
+
+call plug#end()

@@ -1,0 +1,30 @@
+############################################################################
+# Source this file in your .bashrc to get git support for your bash session #
+#########################################################################
+
+# Load official git bash completion support
+source ~/.git-prompt.sh
+
+# Load official git prompt support
+source ~/.git-completion.bash
+
+# GIT prompt options
+# ------------------
+
+# indicate status of working directory (*), stage area (+
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+# indicate difference between HEAD and upstream repo
+export GIT_PS1_SHOWUPSTREAM="auto"
+
+# indicate stash status ($)
+GIT_PS1_SHOWSTASHSTATE=1
+
+# indicate untracked files (%)
+GIT_PS1_SHOWUNTRACKEDFILES=1
+
+# show colored hints for dirty state
+GIT_PS1_SHOWCOLORHINTS=1
+
+# set git prompt
+PS1='\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ]\[\e[95m\]$(__git_ps1 " (%s)")\[\e[0m\] \$ '
