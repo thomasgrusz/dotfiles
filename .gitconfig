@@ -11,6 +11,7 @@
 	pruneupstream = !git remote update --prune && git branch -vv | awk \"/: gone]/{print $1}\" | xargs git branch -d
 [core]
 	editor = vim
+	pager = less -FRX
 [color]
 	status = auto
 	branch = auto
