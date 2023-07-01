@@ -23,3 +23,6 @@ PS1='\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ] \$ '
 if [ -f ~/.bash_git_setup ]; then
     . ~/.bash_git_setup
 fi
+
+# set environment variable for the less command to handle utf-8 character encoding
+export LESSCHARSET=utf-8
