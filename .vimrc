@@ -35,7 +35,7 @@ set number relativenumber
 set hlsearch
 set incsearch
 set ignorecase
-set smartcase	" disables ignorecas if search term contains capitals
+set smartcase	" disables ignorecase if search term contains capitals
 
 " Automatically wrap text that extends beyond the screen length
 set wrap
