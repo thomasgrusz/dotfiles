@@ -1,172 +1,215 @@
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""               
-"               
-"               ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
-"               ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
-"               ██║   ██║██║██╔████╔██║██████╔╝██║     
-"               ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║     
-"                ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
-"                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
-"               
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""    
-
-
-"" ******** General Settings ********
-" Set runtimetime path (i.e. .../badwolf in front of the existing path) 
-"set runtimepath^=~/.vim/bundle/badwolf
-
-" Set compatibility to Vim only (not Vi) (default)
-set nocompatible
-
-" Encoding
-set encoding=utf-8
-
-" Show partial command you type, in last line of the screen
-set showcmd
-
-" Show mode you are in, on the last line
-set showmode
-
-" Show line numbers and relative line numbers (both)
-set number relativenumber
-
-" Highlight searches incrementally and ignore case 
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase	" disables ignorecase if search term contains capitals
-
-" Automatically wrap text that extends beyond the screen length
-set wrap
-
-" Set color scheme
-colorscheme slate
-"colorscheme koehler
-"colorscheme molokai     " curl -o molokai.vim https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-"colorscheme gruvbox
-
-" Enable mouse usage (all modes)
-set mouse=a
-
-" Enable filetype detection. Vim will be able to try to detect the type of file in use.
-filetype on
-
-" Enable plugins and load plugin for the detected file type.
-filetype plugin on
-
-" Load an indent file for the detected file type.
-filetype indent on
-
-" Turn syntax highlighting on.
-syntax on
-
-" Highlight cursor line underneath the cursor horizontally
-"set cursorline
-
-" Highlight cursor line underneath the cursor vertically
-"set cursorcolumn
-
-" Set shift width to 4 spaces
-set shiftwidth=4
-
-" Set tab width to 4 columns (auto-indenting or manual with >> or <<)
-set tabstop=4
-
-" Set space characters instead of tabs
+set autoindent
+set complete-=i
+set smarttab
 set expandtab
-
-" Set the commands to save in history, default number is 20.
-set history=1000
-
-" Enable auto completion menu for opening files after pressing TAB
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=100
+set incsearch
+set laststatus=2
 set wildmenu
+set scrolloff=8
+set sidescrolloff=5
+set display+=lastline
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set formatoptions+=j
+set tags+=gems.tags
+set history=1000
+set tabpagemax=50
+set viminfo^=!
+set viminfo+=f1
+set sessionoptions-=options
+set viewoptions-=options
+set termguicolors
+let &backupdir = '/home/thomasgrusz/.local/share/vim/backup//' " folder must exist
+let &undodir = '/home/thomasgrusz/.local/share/vim/undodir//' " folder must exist
+set undofile
+set mouse=a
+set number
+set cursorline
+set cursorlineopt=number
+set winwidth=79
+set winheight=5
+set winminheight=5
+set wildmode=longest,full
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+set wildignore+=*.swp,*~,._*
+"set foldmethod=indent
+set foldnestmax=3
+set nofoldenable
+set hlsearch
+set ignorecase
+set smartcase
+set iskeyword+=-
+set splitright
+set splitbelow
+set shortmess+=I
+set showcmd
+set switchbuf=usetab
+set hidden
+set linebreak
+set showbreak=" "
+"set shortmess+=A		" suppress Attention msg
+set updatetime=1500
+set gp=git\ grep\ -n
 
-" Make wildmenu behave like similar to Bash completion
-set wildmode=list:longest
-
-" There are certain files that we would never want to edit with Vim.
-" Wildmenu will ignore files with these extensions.
-"set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
-
-"" ******** MAPPINGS ********
-" Map simpler pane-navigation keys
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+inoremap jj <esc>
+nnoremap Y y$
+nnoremap & :&&<CR> " repeat substitution w flags (i, g, etc)
+xnoremap & :&&<CR>
+vmap j gj
+vmap k gk
+nmap j gj
+nmap k gk
+noremap n nzz
+noremap N Nzz
+noremap gV `[v`]
+vnoremap <silent> y y`]
+nnoremap <silent> p p`]
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'		" && = shorcut to cwd in e/w mode
+nnoremap <silent> <C-P> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+let &directory = '/home/thomasgrusz/.vim' . '//,' . &directory
+au FocusGained,BufEnter,CursorHold,CursorHoldI * if !bufexists("[Command Line]") | checktime | endif
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-
-" Map NERDTree toggle to Ctrl-n
-"map <C-n> :NERDTreeToggle<CR>  " CTRL-n to toggle NERDTree
-" Map NERDTree toggle to F3
-map <F3> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1    " Automatically cloase NERDTree when you open a file
-
-" Map jj to Escape key in INSERT and VISUAL modes
-inoremap jj <esc>
-"vnoremap jj <esc>
-
-" Set leader key to a backslash `\` (default)
 let mapleader = "\\"
-
-" Map `\\` to turn off the highlighted text from a search
-nnoremap <leader>\ :nohlsearch<CR>
-
-" Map `\t` to opening a terminal pane to the right
-nnoremap <leader>t :below vertical terminal<CR>
-
-" Press SPACE BAR to get into : commant typing mode
-nnoremap <space> : 
-
-" Create an empty line by pressing `o` or `O`
+nnoremap <leader>\ :vertical terminal<CR>
+nnoremap <space> :
 nnoremap o o<esc>
 nnoremap O O<esc>
+nnoremap <silent> <Esc>k :m-2<CR>
+nnoremap <silent> <Esc>j :m+1<CR>
+nnoremap <silent> <M-Up> :m-2<CR>
+nnoremap <silent> <M-Down> :m+1<CR>
+xnoremap <silent> <Esc>k :m-2<CR>gv=gv
+xnoremap <silent> <Esc>j :m'>+<CR>gv=gv
 
-" Center the cursor vertically when moving to the next word during a search.
-nnoremap n nzz
-nnoremap N Nzz
+let g:lightline = {
+\   'colorscheme': 'wombat',
+\   'active': {
+\     'left': [ [ 'mode', 'paste' ],
+\               [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+\   },
+\   'component_function': {
+\     'gitbranch': 'FugitiveHead'
+\   },
+\ }
 
-" Yank from cursor to end of line
-nnoremap Y y$
-
-" Map the F5 key to run a Python script inside Vim.
-" I map F5 to a chain of commands here.
-" :w saves the file.
-" <CR> (carriage return) is like pressing the enter key.
-" !clear runs the external clear screen command.
-" !python3 % executes the current file with Python.
-nnoremap <f5> :w <CR>:!clear <CR>:!python3 % <CR>
-
-
-"" ******** PLUGINS ********
-" To install the vim-plug plugin manager run the following command:
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-" Call the .vimrc.plug file
-if filereadable(expand("~/.vimrc.plug"))
-	source ~/.vimrc.plug
-endif
+let g:ale_linters = {
+\   'python': ['flake8'],
+\   'javascript': ['eslint'],
+\   'html': ['tidy', 'eslint'],
+\ }
 
 
-"" ******** VIMSCRIPTS ********
-" If the current file type is HTML, set indentation to 2 spaces.
-autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
+let g:ale_fixers = {
+\    'python': ['autopep8'],
+\    'javascript': ['eslint'],
+\    'html': ['tidy'],
+\ }
 
+command! -nargs=+ Grep silent grep! <args>
 
-"" ******** STATUS LINE ********
+" Python development environment
+augroup PythonSettings
+    autocmd!
+    autocmd FileType python call s:LoadPythonDevEnvironment()
+augroup END
 
-" Clear status line when vimrc is reloaded.
-set statusline=
+function! s:LoadPythonDevEnvironment()
+    packadd ale         " Load linter plugin
+    packadd jedi-vim    " Load Python syntax plugin
+    nnoremap <buffer> <leader>f :ALEFix<CR>
+    nnoremap <buffer> <leader>] :update<CR>:terminal python3 %:p<CR>
+endfunction
 
-" Status line left side.
-set statusline+=\ %F\ %M\ %Y\ %R
+" WebDev environment
+augroup HTMLCSSSettings
+    autocmd!
+    autocmd FileType html,css call s:htmlAndCss()
+augroup END
 
-" Use a divider to separate the left side from the right side.
-set statusline+=%=
+function! s:htmlAndCss()
+    packadd ale             " Load linter plugin
+    packadd emmet-vim       " Load emmet plugin
+    packadd vim-css-color   " Load css color plugin
+    nnoremap <buffer> <leader>f :ALEFix<CR>
+    nnoremap <buffer> <leader>l :terminal browser-sync -w<CR>
+endfunction
 
-" Status line right side.
-set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+augroup JavaScriptSettings
+    autocmd!
+    autocmd FileType javascript call s:jsSettings()
+augroup END
 
-" Show the status on the second to last line.
-set laststatus=2
+function! s:jsSettings()
+    packadd ale
+    nnoremap <buffer> <leader>f :ALEFix<CR>
+    nnoremap <buffer> <leader>] :update<CR>:terminal node %:p<CR>
+endfunction
+
+" Remove trailing whitespace when saving a file
+augroup whitespaceremoval
+    autocmd!
+    autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
+autocmd QuickFixCmdPost [^l]* nested cwindow 20 | redraw!
+
+autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
+
+"===============================================================================
+" %s/\Csearchterm/replacement/g - force case-sensitive searches (\C)
+" %s/\cSEARCHTERM/replacement/g - force case-insensitive searches (\c)
+
+" sudo apt install fonts-powerline fonts-jetbrains-mono
+
+" *** Python projects
+" Create and start a virtual environment
+" in the project folder and download relevant packages:
+"   python3 -m venv venv
+"   source venv/bin/activate
+"   pip install flake8 autopep8
+"
+" *** Javascript projects
+" Locally install the js linter 'eslint' in the project directory and initialize it:
+"   npm install eslint --save-dev
+"   npx eslint --init
+
+"Also install a plugin to lint javascript within html files:
+" 'eslint-plugin-html' and add 2 configuration lines inside
+" 'eslint.config.mjs':
+
+" import html from "eslint-plugin-html"
+"   export default [
+"     {
+"       files: ["**/*.html"],
+"       plugins: { html },
+"     },
+"   ]
+
+" Then add a ternjs (autocomplete) configuration file:
+"
+"   .tern-project:
+"     {
+"       "libs": [
+"         "browser",
+"         "ecmascript"
+"       ],
+"       "plugins": {
+"         "esmodules": {}
+"       }
+"     }
+
+" Also make sure that the 'tidy' package is installed on the system.
+" This package is needed by the vim plugin for 'ale' for html linting.
+"       'sudo apt install tidy'
