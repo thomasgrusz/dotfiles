@@ -29,13 +29,22 @@
 ---
 
 
-## Add new vim plugins as git submodules
+## Add vim plugins as git submodules
 ```
 cd  ~/dotfiles/vim/pack/myplygins/opt
+
+# already installed
 git submodule add https://github.com/itchyny/lightline.vim
 git submodule add https://github.com/morhetz/gruvbox
 git submodule add https://github.com/tpope/vim-fugitive
 git submodule add https://github.com/dense-analysis/ale
+
+# not installed
+git submodule add https://github.com/mattn/emmet-vim
+git submodule add https://github.com/davidhalter/jedi-vim
+git submodule add https://github.com/sirver/ultisnips
+git submodule add https://github.com/joom/vim-commentary
+
 cd ~/dotfiles
 git add .gitmodules vim/pack/myplugins/opt/*
 git commit -m "Add Vim plugins as submodules"
