@@ -1,0 +1,12 @@
+[submodule "vim/pack/myplugins/opt/lightline.vim"]
+	path = vim/pack/myplugins/opt/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule "vim/pack/myplugins/opt/gruvbox"]
+	path = vim/pack/myplugins/opt/gruvbox
+	url = https://github.com/morhetz/gruvbox
+[submodule "vim/pack/myplugins/opt/vim-fugitive"]
+	path = vim/pack/myplugins/opt/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/pack/myplugins/opt/ale"]
+	path = vim/pack/myplugins/opt/ale
+	url = https://github.com/dense-analysis/ale
