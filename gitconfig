@@ -1,0 +1,19 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Thomas Grusz
+	email = thomas.grusz@protonmail.com
+[alias]
+	l = log --oneline
+	ll = log --oneline --all --graph
+	ac = !git add -A && git commit -m
+	s = status
+	b = branch
+	pruneupstream = !git remote update --prune && git branch -vv | awk \"/: gone]/{print $1}\" | xargs git branch -d
+[core]
+	editor = vim
+	pager = less -FRX
+[color]
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
