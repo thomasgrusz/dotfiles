@@ -27,4 +27,4 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWCOLORHINTS=1
 
 # set git prompt
-PS1='\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ]\[\e[95m\]$(__git_ps1 " (%s)")\[\e[0m\] \$ '
+#PS1='\[\e[93m\]\u\[\e[36m\]@\[\e[93m\]\h \[\e[0m\][ \[\e[32m\]\W\[\e[0m\] ]\[\e[95m\]$(__git_ps1 " (%s)")\[\e[0m\] \$ '
