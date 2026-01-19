@@ -8,6 +8,7 @@ alias unclutter='grep -vE "^$|^\s*#"'
 alias mypath='echo $PATH | tr ":" "\n"'
 alias fp="dpkg -l | grep -i"
 alias simpleserver='python3 -m http.server 8000'
+alias mkv2mp4='ffmpeg -i input.mkv -c:v copy -c:a copy -c:s mov_text -map 0 output.mp4'
 #alias vimhelp='less /home/thomasgrusz/Documents/Computerscience/sysadmin_files/vim.txt'
 #alias downloadytplaylist='yt-dlp --yes-playlist -o "%(playlist_index)s - %(title)s.%(ext)s"'
 #alias startpythonproject='python3 -m venv venv && source venv/bin/activate && pip install flake8 autopep8'
