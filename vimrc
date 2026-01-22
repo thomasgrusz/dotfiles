@@ -13,6 +13,9 @@
 " Run this command to display all options that have been set:
 " :set
 
+" Run this command to display all available options:
+" :set all
+
 " Run this command to display all global variables:
 " :echo g:
 
@@ -305,6 +308,12 @@ set foldnestmax=3
 " Customize invisible character display (tabs, trailing spaces, etc.)
 set listchars=tab:>\ ,space:·,trail:·,extends:>,precedes:<,nbsp:+,eol:$
 
+" Remove trailing whitespace on save
+augroup whitespaceremoval
+	autocmd!
+	autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
 " These 2 lines correct vim's default indentation behaviour for python files
 " in certain 'line continuation' situations. 1 shiftwidth is inserted
 " instead of 2 shiftwiths. Both are PEP8 compliant, but 4 spaces are
@@ -337,11 +346,31 @@ let g:lightline = {
 " Load lightline plugin from ~/.vim/pack/myplugins/opt for statusline
 packadd lightline.vim
 
-" Remove trailing whitespace on save
-augroup whitespaceremoval
-    autocmd!
-    autocmd BufWritePre * %s/\s\+$//e
-augroup END
+" TEST WITH ALE ****************************
+
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+
+let g:ale_linters = {
+\   'python': ['flake8']
+\ }
+
+let g:ale_fixers = {
+\   'python': ['black']
+\ }
+let g:ale_fix_on_save = 1
+
+packadd ale
+
+
+
+
+
+
+
+
+
+" ******************************************
 
 "" Configure ALE linters for specific filetypes
 "let g:ale_linters = {
