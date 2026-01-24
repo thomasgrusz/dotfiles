@@ -169,7 +169,7 @@ nnoremap Q <nop>
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 " Revert with ":iunmap <C-U>".
-"inoremap <C-U> <C-G>u<C-U>
+inoremap <C-U> <C-G>u<C-U>
 
 " Map jj to escape in insert mode
 inoremap jj <esc>
@@ -346,7 +346,13 @@ let g:lightline = {
 " Load lightline plugin from ~/.vim/pack/myplugins/opt for statusline
 packadd lightline.vim
 
-"" Set up Python development environment
+" Set up Python development environment
+let g:ale_linters = {
+\   'python': ['flake8']
+\ }
+let g:ale_fixers = {
+\   'python': ['black']
+\ }
 packadd ale
 packadd jedi-vim
 
@@ -357,18 +363,12 @@ augroup END
 
 " Load Python-specific plugins and mappings
 function! s:LoadPythonDevEnvironment()
-	let g:ale_linters = {
-	\   'python': ['flake8']
-	\ }
-	let g:ale_fixers = {
-	\   'python': ['black']
-	\ }
 
 	let g:jedi#auto_initialization = 1
 	let g:jedi#completions_enabled = 1
 	let g:ale_fix_on_save = 1
 	nnoremap <buffer> <leader>f :ALEFix<CR>
-	nnoremap K :ALEHover<CR>
+	"nnoremap K :ALEHover<CR>
 	nnoremap <F5> :w<CR>:!python3 %<CR>
 
 endfunction
