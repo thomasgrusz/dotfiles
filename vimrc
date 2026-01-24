@@ -350,8 +350,9 @@ packadd lightline.vim
 let g:ale_linters = {
 \   'python': ['flake8']
 \ }
+"I don't use the 'black' formatter as it is not always PEP8 compliant
 let g:ale_fixers = {
-\   'python': ['black']
+\   'python': ['yapf']
 \ }
 packadd ale
 packadd jedi-vim
@@ -367,6 +368,7 @@ function! s:LoadPythonDevEnvironment()
 	let g:jedi#auto_initialization = 1
 	let g:jedi#completions_enabled = 1
 	let g:ale_fix_on_save = 1
+"	let g:ale_python_black_options='--line-length=79'
 	nnoremap <buffer> <leader>f :ALEFix<CR>
 	"nnoremap K :ALEHover<CR>
 	nnoremap <F5> :w<CR>:!python3 %<CR>
