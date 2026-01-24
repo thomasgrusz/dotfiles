@@ -347,6 +347,9 @@ let g:lightline = {
 packadd lightline.vim
 
 "" Set up Python development environment
+packadd ale
+packadd jedi-vim
+
 augroup PythonSettings
     autocmd!
     autocmd FileType python call s:LoadPythonDevEnvironment()
@@ -354,39 +357,67 @@ augroup END
 
 " Load Python-specific plugins and mappings
 function! s:LoadPythonDevEnvironment()
-	packadd ale
-	setlocal omnifunc=ale#completion#OmniFunc
-
 	let g:ale_linters = {
-	\   'python': ['pylsp', 'flake8']
+	\   'python': ['flake8']
 	\ }
 	let g:ale_fixers = {
 	\   'python': ['black']
 	\ }
 
-	set completeopt=menu,menuone
-	"set completeopt=menu,menuone,noselect
-	let g:ale_completion_enabled = 1
+	let g:jedi#auto_initialization = 1
+	let g:jedi#completions_enabled = 1
 	let g:ale_fix_on_save = 1
-	nnoremap K :ALEHover<CR>
 	nnoremap <buffer> <leader>f :ALEFix<CR>
+	nnoremap K :ALEHover<CR>
 	nnoremap <F5> :w<CR>:!python3 %<CR>
-
-	" Tab completion after dot and keywords
-	inoremap <silent><expr> <Tab>
-	      \ pumvisible() ? "\<C-n>" :
-	      \ col('.') > 1 && getline('.')[col('.') - 2] =~ '[A-Za-z0-9_\.]' ?
-	      \ "\<C-x>\<C-o>" :
-	      \ "\<Tab>"
-
-	" Use shift-Tab to go backwards in menu
-	inoremap <silent><expr> <S-Tab>
-	      \ pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 endfunction
 
+
 " ----------------- not used -----------------
 
+"" Set up Python development environment without jedi-vim plugin
+"augroup PythonSettings
+"    autocmd!
+"    autocmd FileType python call s:LoadPythonDevEnvironment()
+"augroup END
+"
+"" Load Python-specific plugins and mappings
+"function! s:LoadPythonDevEnvironment()
+"	packadd ale
+"	setlocal omnifunc=ale#completion#OmniFunc
+"
+"	let g:ale_linters = {
+"	\   'python': ['pylsp', 'flake8']
+"	\ }
+"	let g:ale_fixers = {
+"	\   'python': ['black']
+"	\ }
+"
+"	set completeopt=menu,menuone
+"	"set completeopt=menu,menuone,noselect
+"	let g:ale_completion_enabled = 1
+"	let g:ale_fix_on_save = 1
+"	nnoremap K :ALEHover<CR>
+"	nnoremap <buffer> <leader>f :ALEFix<CR>
+"	nnoremap <F5> :w<CR>:!python3 %<CR>
+"
+"	" Tab completion after dot and keywords
+"	inoremap <silent><expr> <Tab>
+"	      \ pumvisible() ? "\<C-n>" :
+"	      \ col('.') > 1 && getline('.')[col('.') - 2] =~ '[A-Za-z0-9_\.]' ?
+"	      \ "\<C-x>\<C-o>" :
+"	      \ "\<Tab>"
+"
+"	" Use shift-Tab to go backwards in menu
+"	inoremap <silent><expr> <S-Tab>
+"	      \ pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+"endfunction
+"
+"
+"
+"
 "" Enable auto-indentation, copying indent from previous line
 "set autoindent
 "
@@ -524,7 +555,8 @@ endfunction
 " in the project folder and download relevant packages:
 "   python3 -m venv venv
 "   source venv/bin/activate
-"   pip install flake8 autopep8
+"   pip install --upgrade pip
+"   pip install python-lsp-server[flake8]
 "
 " *** Javascript projects
 " Locally install the js linter 'eslint' in the project directory and initialize it:
