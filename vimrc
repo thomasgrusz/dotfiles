@@ -346,63 +346,44 @@ let g:lightline = {
 " Load lightline plugin from ~/.vim/pack/myplugins/opt for statusline
 packadd lightline.vim
 
-" TEST WITH ALE ****************************
-
-let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
-
-let g:ale_linters = {
-\   'python': ['flake8']
-\ }
-
-let g:ale_fixers = {
-\   'python': ['black']
-\ }
-let g:ale_fix_on_save = 1
-
-packadd ale
-
-
-
-
-
-
-
-
-
-" ******************************************
-
-"" Configure ALE linters for specific filetypes
-"let g:ale_linters = {
-"\   'python': ['flake8'],
-"\   'javascript': ['eslint'],
-"\   'html': ['tidy', 'eslint'],
-"\ }
-"
-"" Configure ALE fixers for specific filetypes
-"let g:ale_fixers = {
-"\    'python': ['autopep8'],
-"\    'javascript': ['eslint'],
-"\    'html': ['tidy'],
-"\ }
-"
 "" Set up Python development environment
-"augroup PythonSettings
-"    autocmd!
-"    autocmd FileType python call s:LoadPythonDevEnvironment()
-"augroup END
-"
-"" Load Python-specific plugins and mappings
-"function! s:LoadPythonDevEnvironment()
-"    packadd ale         " Load linter plugin
-"    packadd jedi-vim    " Load Python syntax plugin
-"    nnoremap <buffer> <leader>f :ALEFix<CR>
-"    nnoremap <buffer> <leader>] :update<CR>:terminal python3 %:p<CR>
-"    nnoremap <F5> :w<CR>:!python3 %<CR>
-"endfunction
+augroup PythonSettings
+    autocmd!
+    autocmd FileType python call s:LoadPythonDevEnvironment()
+augroup END
 
-" Python Development Environment
-" map F5 to 'run code'
+" Load Python-specific plugins and mappings
+function! s:LoadPythonDevEnvironment()
+	packadd ale
+	setlocal omnifunc=ale#completion#OmniFunc
+
+	let g:ale_linters = {
+	\   'python': ['pylsp', 'flake8']
+	\ }
+	let g:ale_fixers = {
+	\   'python': ['black']
+	\ }
+
+	set completeopt=menu,menuone
+	"set completeopt=menu,menuone,noselect
+	let g:ale_completion_enabled = 1
+	let g:ale_fix_on_save = 1
+	nnoremap K :ALEHover<CR>
+	nnoremap <buffer> <leader>f :ALEFix<CR>
+	nnoremap <F5> :w<CR>:!python3 %<CR>
+
+	" Tab completion after dot and keywords
+	inoremap <silent><expr> <Tab>
+	      \ pumvisible() ? "\<C-n>" :
+	      \ col('.') > 1 && getline('.')[col('.') - 2] =~ '[A-Za-z0-9_\.]' ?
+	      \ "\<C-x>\<C-o>" :
+	      \ "\<Tab>"
+
+	" Use shift-Tab to go backwards in menu
+	inoremap <silent><expr> <S-Tab>
+	      \ pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+endfunction
 
 " ----------------- not used -----------------
 
