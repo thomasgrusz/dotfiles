@@ -4,7 +4,7 @@
 `cd && git clone git@github.com:thomasgrusz/dotfiles.git`
 
 **Run this install script for backing up existing dotfiles and to create the following soft links below:**
-`bash ~/dotfile/install.sh`
+`bash ~/dotfiles/install.sh`
 
 ```
 .bash_aliases -> ~/dotfiles/bash_aliases
