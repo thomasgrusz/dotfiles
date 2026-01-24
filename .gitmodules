@@ -10,3 +10,6 @@
 [submodule "vim/pack/myplugins/opt/ale"]
 	path = vim/pack/myplugins/opt/ale
 	url = https://github.com/dense-analysis/ale
+[submodule "vim/pack/myplugins/opt/jedi-vim"]
+	path = vim/pack/myplugins/opt/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
