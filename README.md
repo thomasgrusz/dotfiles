@@ -38,10 +38,10 @@ git submodule add https://github.com/itchyny/lightline.vim
 git submodule add https://github.com/morhetz/gruvbox
 git submodule add https://github.com/tpope/vim-fugitive
 git submodule add https://github.com/dense-analysis/ale
+git submodule add https://github.com/davidhalter/jedi-vim
 
 # not installed
 git submodule add https://github.com/mattn/emmet-vim
-git submodule add https://github.com/davidhalter/jedi-vim
 git submodule add https://github.com/sirver/ultisnips
 git submodule add https://github.com/joom/vim-commentary
 
