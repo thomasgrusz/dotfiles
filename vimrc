@@ -103,6 +103,9 @@ set background=dark
 " Set colorscheme
 colorscheme gruvbox
 
+" Set colorcolum
+set colorcolumn=80
+
 " Show partial commands in status line (bottom-right)
 set showcmd
 
@@ -259,6 +262,9 @@ let g:terminal_ansi_colors = [
 
 " Show line numbers
 set number
+
+" Show relative line numbers
+set relativenumber
 
 " Highlight current line
 set cursorline
