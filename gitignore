@@ -1,6 +1,0 @@
-# Python
-__pycache__
-*.pyc
-
-# Jupyter Notebook
-.ipynb_checkpoints

@@ -5,7 +5,7 @@ backup_dir="$HOME/dotfiles_backup_$(date +%Y%m%d)"
 mkdir -p "$backup_dir"
 
 # Array for files (stored without dot in dotfiles)
-files=("bash_aliases" "bash_git_setup" "bashrc" "git-completion.bash" "gitconfig" "gitignore" "git-prompt.sh" "vimrc")
+files=("bash_aliases" "bash_git_setup" "bashrc" "git-completion.bash" "gitconfig" "git-prompt.sh" "vimrc")
 
 # Backup files
 for file in "${files[@]}"; do

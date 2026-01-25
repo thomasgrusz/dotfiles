@@ -12,7 +12,6 @@
 .bashrc -> ~/dotfiles/bashrc
 .git-completion.bash -> ~/dotfiles/git-completion.bash
 .gitconfig -> ~/dotfiles/gitconfig
-.gitignore -> ~/dotfiles/gitignore
 .git-prompt.sh -> ~/dotfiles/git-prompt.sh
 .vim -> ~/dotfiles/vim
 .vimrc -> ~/dotfiles/vimrc
