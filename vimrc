@@ -380,7 +380,7 @@ let g:jedi#popup_on_dot = 0
 packadd supertab
 packadd ale
 packadd jedi-vim
-
+"packadd emmet-vim
 
 augroup PythonSettings
     autocmd!
@@ -394,7 +394,19 @@ function! s:LoadPythonDevEnvironment()
 	nnoremap <F5> :w<CR>:!python3 %<CR>
 endfunction
 
+augroup htmlcssSettings
+    autocmd!
+    autocmd FileType html,css call s:LoadHtmlCssDevEnvironment()
+augroup END
 
+" Load htmlcss-specific mappings
+function! s:LoadHtmlCssDevEnvironment()
+	packadd emmet-vim
+	imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+	set tabstop=2
+	set shiftwidth=2
+	set expandtab
+endfunction
 " ----------------- not used -----------------
 
 "" Set up Python development environment without jedi-vim plugin

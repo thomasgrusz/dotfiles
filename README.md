@@ -39,6 +39,7 @@ git submodule add https://github.com/tpope/vim-fugitive
 git submodule add https://github.com/dense-analysis/ale
 git submodule add https://github.com/davidhalter/jedi-vim
 git submodule add https://github.com/ervandew/supertab
+git submodule add https://github.com/mattn/emmet-vim
 
 # not installed
 git submodule add https://github.com/mattn/emmet-vim

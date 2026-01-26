@@ -16,3 +16,6 @@
 [submodule "vim/pack/myplugins/opt/supertab"]
 	path = vim/pack/myplugins/opt/supertab
 	url = https://github.com/ervandew/supertab
+[submodule "vim/pack/myplugins/opt/emmet-vim"]
+	path = vim/pack/myplugins/opt/emmet-vim
+	url = https://github.com/mattn/emmet-vim
