@@ -104,7 +104,7 @@ set background=dark
 colorscheme gruvbox
 
 " Set colorcolum
-set colorcolumn=80
+"set colorcolumn=80
 
 " Show partial commands in status line (bottom-right)
 set showcmd
@@ -360,25 +360,34 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'python': ['yapf']
 \ }
+
+let g:ale_fix_on_save = 1
+"let g:ale_python_black_options='--line-length=79'
+
+" These three options are the most important for jedi-vim
+let g:jedi#show_call_signatures = 0
+"let g:jedi#popup_on_dot = 0
+"let g:jedi#popup_select_first = 0
+
+"let g:jedi#auto_initialization = 1
+"let g:jedi#completions_enabled = 1
+"let g:jedi#show_signature_help = 0
+
+
 packadd ale
 packadd jedi-vim
+
 
 augroup PythonSettings
     autocmd!
     autocmd FileType python call s:LoadPythonDevEnvironment()
 augroup END
 
-" Load Python-specific plugins and mappings
+" Load Python-specific mappings
 function! s:LoadPythonDevEnvironment()
-
-	let g:jedi#auto_initialization = 1
-	let g:jedi#completions_enabled = 1
-	let g:ale_fix_on_save = 1
-"	let g:ale_python_black_options='--line-length=79'
-	nnoremap <buffer> <leader>f :ALEFix<CR>
 	"nnoremap K :ALEHover<CR>
+	nnoremap <buffer> <leader>f :ALEFix<CR>
 	nnoremap <F5> :w<CR>:!python3 %<CR>
-
 endfunction
 
 
