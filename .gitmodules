@@ -13,3 +13,6 @@
 [submodule "vim/pack/myplugins/opt/jedi-vim"]
 	path = vim/pack/myplugins/opt/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim
+[submodule "vim/pack/myplugins/opt/supertab"]
+	path = vim/pack/myplugins/opt/supertab
+	url = https://github.com/ervandew/supertab
