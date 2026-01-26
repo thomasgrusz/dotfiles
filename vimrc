@@ -361,19 +361,21 @@ let g:ale_fixers = {
 \   'python': ['yapf']
 \ }
 
+let g:SuperTabDefaultCompletionType = "context"
+
 let g:ale_fix_on_save = 1
 "let g:ale_python_black_options='--line-length=79'
 
 " These three options are the most important for jedi-vim
 let g:jedi#show_call_signatures = 0
-"let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 0
 "let g:jedi#popup_select_first = 0
 
 "let g:jedi#auto_initialization = 1
 "let g:jedi#completions_enabled = 1
 "let g:jedi#show_signature_help = 0
 
-
+packadd supertab
 packadd ale
 packadd jedi-vim
 
