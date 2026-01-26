@@ -140,4 +140,7 @@ source ~/.bash_git_setup
 # curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 # sudo rm -rf /opt/nvim-linux-x86_64
 # sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+# add this to end of $PATH: /opt/nvim-linux-x86_64/bin"
+if [[ -d "/opt/nvim-linux-x86_64/bin" ]]; then
+  [[ ":$PATH:" == *":/opt/nvim-linux-x86_64/bin:"* ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+fi
