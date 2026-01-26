@@ -361,7 +361,7 @@ let g:ale_fixers = {
 \   'python': ['yapf']
 \ }
 
-let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:ale_fix_on_save = 1
 "let g:ale_python_black_options='--line-length=79'
