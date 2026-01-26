@@ -361,8 +361,10 @@ let g:ale_fixers = {
 \   'python': ['yapf']
 \ }
 
+" Make selection order top->down in option window
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
+" Run yapf formatter on save
 let g:ale_fix_on_save = 1
 "let g:ale_python_black_options='--line-length=79'
 
@@ -373,7 +375,7 @@ let g:jedi#popup_on_dot = 0
 
 "let g:jedi#auto_initialization = 1
 "let g:jedi#completions_enabled = 1
-"let g:jedi#show_signature_help = 0
+"let g:jedi#show_signature_help = 1
 
 packadd supertab
 packadd ale
