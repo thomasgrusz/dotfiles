@@ -352,34 +352,33 @@ let g:lightline = {
 " Load lightline plugin from ~/.vim/pack/myplugins/opt for statusline
 packadd lightline.vim
 
-" Set up Python development environment
+" Set up Python JavaScript development environment
 let g:ale_linters = {
-\   'python': ['flake8']
+\   'python': ['flake8'],
+\   'javascript': ['eslint'],
 \ }
-"I don't use the 'black' formatter as it is not always PEP8 compliant
+"I don't use the 'black' formatter as it is not always PEP8 compliant, yapf
+"instead
 let g:ale_fixers = {
-\   'python': ['yapf']
+\   'python': ['yapf'],
+\   'javascript': ['prettier'],
 \ }
 
 " Make selection order top->down in option window
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" Run yapf formatter on save
+" Run yapf and prettier formatters on save
 let g:ale_fix_on_save = 1
-"let g:ale_python_black_options='--line-length=79'
 
 " These three options are the most important for jedi-vim
 let g:jedi#show_call_signatures = 0
 let g:jedi#popup_on_dot = 0
 "let g:jedi#popup_select_first = 0
 
-"let g:jedi#auto_initialization = 1
-"let g:jedi#completions_enabled = 1
-"let g:jedi#show_signature_help = 1
-
 packadd supertab
 packadd ale
 packadd jedi-vim
+"packadd tern_for_vim
 "packadd emmet-vim
 
 augroup PythonSettings
@@ -399,7 +398,7 @@ augroup htmlcssSettings
     autocmd FileType html,css call s:LoadHtmlCssDevEnvironment()
 augroup END
 
-" Load htmlcss-specific mappings
+" Load htmlcss-specific mappings and settings
 function! s:LoadHtmlCssDevEnvironment()
 	packadd emmet-vim
 	imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
@@ -407,6 +406,21 @@ function! s:LoadHtmlCssDevEnvironment()
 	set shiftwidth=2
 	set expandtab
 endfunction
+
+
+augroup JavaScriptSettings
+    autocmd!
+    autocmd FileType javascript,json call s:LoadJavaScriptDevEnvironment()
+augroup END
+
+" Load JavaScript-specific mappings and settings
+function! s:LoadJavaScriptDevEnvironment()
+	nnoremap <buffer> <leader>f :ALEFix<CR>
+	set tabstop=2
+	set shiftwidth=2
+	set expandtab
+endfunction
+
 " ----------------- not used -----------------
 
 "" Set up Python development environment without jedi-vim plugin
