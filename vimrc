@@ -101,7 +101,7 @@ augroup END
 set background=dark
 
 " Set colorscheme
-colorscheme gruvbox
+silent! colorscheme gruvbox
 
 " Set colorcolum
 "set colorcolumn=80
