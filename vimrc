@@ -87,8 +87,8 @@ nnoremap <leader>\ :vertical terminal<CR>
 nnoremap <silent> <C-P> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<TAB>"
 
-" coc-pyright
-let g:coc_global_extensions = ['coc-pyright']   " auto-install on new machines
+" coc auto-installs on new machines
+let g:coc_global_extensions = ['coc-pyright', 'coc-tsserver', 'coc-eslint', 'coc-prettier']
 
 " Python indentation fix
 let g:pyindent_open_paren='shiftwidth()'
@@ -123,11 +123,39 @@ let g:ale_fixers = {
 \ }
 let g:ale_fix_on_save = 1
 
+" Run JavaScript files in a terminal window to the right
+let g:js_term_bufnr = -1
+
+function! RunJSInTerm()
+  write
+  if g:js_term_bufnr == -1 || !bufexists(g:js_term_bufnr)
+    vert rightbelow term
+    let g:js_term_bufnr = bufnr('%')
+    wincmd p
+  endif
+  " Send clear + node command to existing terminal
+  call term_sendkeys(g:js_term_bufnr, "clear\<CR>node " . expand('%:p') . "\<CR>")
+endfunction
+
+" Run Python files in a terminal window to the right
+let g:py_term_bufnr = -1
+
+function! RunPythonInTerm()
+  write
+  if g:py_term_bufnr == -1 || !bufexists(g:py_term_bufnr)
+    vert rightbelow term
+    let g:py_term_bufnr = bufnr('%')
+    wincmd p
+  endif
+  call term_sendkeys(g:py_term_bufnr, "clear\<CR>python3 " . expand('%:p') . "\<CR>")
+endfunction
+
+"
 " Language-specific
 function! s:LoadPythonDevEnvironment()
   setlocal tabstop=4 shiftwidth=4 expandtab
   nnoremap <buffer> <leader>f :ALEFix<CR>
-  nnoremap <buffer> <F5> :w<CR>:!python3 %<CR>
+  nnoremap <buffer> <F5> :call RunPythonInTerm()<CR>
 endfunction
 
 function! s:LoadHtmlCssDevEnvironment()
@@ -138,6 +166,7 @@ endfunction
 function! s:LoadJavaScriptDevEnvironment()
   setlocal tabstop=2 shiftwidth=2 expandtab
   nnoremap <buffer> <leader>f :ALEFix<CR>
+  nnoremap <buffer> <F5> :call RunJSInTerm()<CR>
 endfunction
 
 augroup LanguageSettings
