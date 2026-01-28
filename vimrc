@@ -8,22 +8,14 @@
 
 call plug#begin()
 
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'dense-analysis/ale'
-Plug 'davidhalter/jedi-vim'
-Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim', { 'for': ['html','css'] }
 
 call plug#end()
-
-" Turn on syntax highlighting
-syntax enable
-
-" Enable filetype detection, plugins, and indentation
-filetype plugin indent on
 
 " Jump to last cursor position (with safeguards)
 augroup vimStartup
@@ -93,6 +85,10 @@ vnoremap <silent> y y`]
 let mapleader = "\\"
 nnoremap <leader>\ :vertical terminal<CR>
 nnoremap <silent> <C-P> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<TAB>"
+
+" coc-pyright
+let g:coc_global_extensions = ['coc-pyright']   " auto-install on new machines
 
 " Python indentation fix
 let g:pyindent_open_paren='shiftwidth()'
@@ -126,13 +122,6 @@ let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \ }
 let g:ale_fix_on_save = 1
-
-" Supertab
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-" Jedi
-let g:jedi#show_call_signatures = 0
-let g:jedi#popup_on_dot = 0
 
 " Language-specific
 function! s:LoadPythonDevEnvironment()
