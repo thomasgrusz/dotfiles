@@ -130,13 +130,16 @@ fi
 # Configure git
 source ~/.bash_git_setup
 
-## Pyenv initialization - Python language version control
+## Install Pyenv - Python version control
+# curl -fsSL https://pyenv.run | bash
+
+## Pyenv initialization
 #export PYENV_ROOT="$HOME/.pyenv"
 #[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 #eval "$(pyenv init - bash)"
 #eval "$(pyenv virtualenv-init -)"
 
-# Add neovim pre-built archive to path
+## Install neovim pre-built
 # curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 # sudo rm -rf /opt/nvim-linux-x86_64
 # sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
@@ -145,6 +148,9 @@ if [[ -d "/opt/nvim-linux-x86_64/bin" ]]; then
   [[ ":$PATH:" == *":/opt/nvim-linux-x86_64/bin:"* ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 fi
 
+## Install nvm (Node Version Manager) and node
+# PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
+# nvm install --lts && nvm use --lts
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
