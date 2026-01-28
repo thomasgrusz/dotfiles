@@ -13,9 +13,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'dense-analysis/ale'
-Plug 'mattn/emmet-vim', { 'for': ['html','css'] }
 
 call plug#end()
+
+" coc auto-installs on new machines
+let g:coc_global_extensions = ['coc-pyright', 'coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-html', 'coc-emmet', 'coc-css']
 
 " Jump to last cursor position (with safeguards)
 augroup vimStartup
@@ -86,9 +88,7 @@ let mapleader = "\\"
 nnoremap <leader>\ :vertical terminal<CR>
 nnoremap <silent> <C-P> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<TAB>"
-
-" coc auto-installs on new machines
-let g:coc_global_extensions = ['coc-pyright', 'coc-tsserver', 'coc-eslint', 'coc-prettier']
+let g:coc_snippet_next = '<tab>'
 
 " Python indentation fix
 let g:pyindent_open_paren='shiftwidth()'
@@ -159,7 +159,6 @@ function! s:LoadPythonDevEnvironment()
 endfunction
 
 function! s:LoadHtmlCssDevEnvironment()
-  imap <expr> <buffer> <tab> emmet#expandAbbrIntelligent("\<tab>")
   setlocal tabstop=2 shiftwidth=2 expandtab
 endfunction
 
