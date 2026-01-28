@@ -69,10 +69,10 @@ noremap N Nzz
 nnoremap <space> :
 nnoremap o o<esc>
 nnoremap O O<esc>
-nnoremap <silent> <M-k> :m-2<CR>
-nnoremap <silent> <M-j> :m+1<CR>
-xnoremap <silent> <M-k> :m-2<CR>gv=gv
-xnoremap <silent> <M-j> :m'>+1<CR>gv=gv
+nnoremap <silent> <Esc>k :m-2<CR>
+nnoremap <silent> <Esc>j :m+1<CR>
+xnoremap <silent> <Esc>k :m-2<CR>gv=gv
+xnoremap <silent> <Esc>j :m'>+1<CR>gv=gv
 nmap j gj
 nmap k gk
 vmap j gj
