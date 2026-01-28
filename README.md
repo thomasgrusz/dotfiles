@@ -16,38 +16,8 @@
 .vim -> ~/dotfiles/vim
 .vimrc -> ~/dotfiles/vimrc
 ```
-**Populate vim plugins (= git submodules):**
-`cd ~/dotfiles && git submodule update --init --recursive`
+**Install Vim plugins (inside Vim):**
+`:PlugInstall`
 
-**Update vim plugins regularly:**
-`cd ~/dotfiles && git submodule update --remote --merge`
-
-**Enable git support for bash (prompt and completion) by adding:**
-`source ~/.bash_git_setup` to `~/.bashrc`:
-
----
-
-
-## Add vim plugins as git submodules
-```
-cd  ~/dotfiles/vim/pack/myplygins/opt
-
-# already installed
-git submodule add https://github.com/itchyny/lightline.vim
-git submodule add https://github.com/morhetz/gruvbox
-git submodule add https://github.com/tpope/vim-fugitive
-git submodule add https://github.com/dense-analysis/ale
-git submodule add https://github.com/davidhalter/jedi-vim
-git submodule add https://github.com/ervandew/supertab
-git submodule add https://github.com/mattn/emmet-vim
-
-# not installed
-git submodule add https://github.com/mattn/emmet-vim
-git submodule add https://github.com/sirver/ultisnips
-git submodule add https://github.com/joom/vim-commentary
-
-cd ~/dotfiles
-git add .gitmodules vim/pack/myplugins/opt/*
-git commit -m "Add Vim plugins as submodules"
-git push origin main
-```
+**Update Vim plugins regularly:**
+`:PlugUpdate`

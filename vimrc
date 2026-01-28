@@ -6,8 +6,21 @@
 " :function: for functions.
 " :map for key bindings.
 
+call plug#begin()
+
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-fugitive'
+Plug 'dense-analysis/ale'
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/supertab'
+Plug 'mattn/emmet-vim', { 'for': ['html','css'] }
+
+call plug#end()
+
 " Turn on syntax highlighting
-syntax on
+syntax enable
 
 " Enable filetype detection, plugins, and indentation
 filetype plugin indent on
@@ -45,7 +58,6 @@ let g:terminal_ansi_colors = [
   \ ]
 set encoding=utf-8
 set undofile undodir=~/.vim/undo//
-set backup backupdir=~/.vim/backup//
 set clipboard=unnamedplus
 set nomodeline
 
@@ -103,7 +115,6 @@ let g:lightline = {
 \     'gitbranch': 'FugitiveHead'
 \   },
 \ }
-silent! packadd lightline.vim
 
 " ALE config
 let g:ale_linters = {
@@ -123,10 +134,6 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:jedi#show_call_signatures = 0
 let g:jedi#popup_on_dot = 0
 
-silent! packadd supertab
-silent! packadd ale
-silent! packadd jedi-vim
-
 " Language-specific
 function! s:LoadPythonDevEnvironment()
   setlocal tabstop=4 shiftwidth=4 expandtab
@@ -135,7 +142,6 @@ function! s:LoadPythonDevEnvironment()
 endfunction
 
 function! s:LoadHtmlCssDevEnvironment()
-  silent! packadd emmet-vim
   imap <expr> <buffer> <tab> emmet#expandAbbrIntelligent("\<tab>")
   setlocal tabstop=2 shiftwidth=2 expandtab
 endfunction
