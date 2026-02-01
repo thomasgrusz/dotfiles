@@ -4,8 +4,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -47,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -66,11 +66,10 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*)
-    ;;
+*) ;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -98,37 +97,36 @@ fi
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f "$HOME"/.bash_aliases ]; then
+    . "$HOME"/.bash_aliases
 fi
 
 # Default parameter to send to the "less" command
 # -R: show ANSI colors correctly; -i: case insensitive search
-LESS="-R -i"
+export LESS="-R -i"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 # Add sbin directories to PATH.  This is useful on systems that have sudo
-echo $PATH | grep -Eq "(^|:)/sbin(:|)"     || PATH=$PATH:/sbin
-echo $PATH | grep -Eq "(^|:)/usr/sbin(:|)" || PATH=$PATH:/usr/sbin
-
+echo "$PATH" | grep -Eq "(^|:)/sbin(:|)" || PATH="$PATH":/sbin
+echo "$PATH" | grep -Eq "(^|:)/usr/sbin(:|)" || PATH="$PATH":/usr/sbin
 
 # Add my scripts folder in ~/.myscripts to PATH, if not there
 if [[ -d "$HOME/.myscripts" ]]; then
-  [[ ":$PATH:" == *":$HOME/.myscripts:"* ]] || export PATH="$PATH:$HOME/.myscripts"
+    [[ ":$PATH:" == *":$HOME/.myscripts:"* ]] || export PATH="$PATH:$HOME/.myscripts"
 fi
 
 # Configure git
-source ~/.bash_git_setup
+source "$HOME"/.bash_git_setup
 
 ## Install Pyenv - Python version control
 # curl -fsSL https://pyenv.run | bash
@@ -144,12 +142,18 @@ source ~/.bash_git_setup
 # sudo rm -rf /opt/nvim-linux-x86_64
 # sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 if [[ -d "/opt/nvim-linux-x86_64/bin" ]]; then
-  [[ ":$PATH:" == *":/opt/nvim-linux-x86_64/bin:"* ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+    [[ ":$PATH:" == *":/opt/nvim-linux-x86_64/bin:"* ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 fi
 
 ## Install nvm (Node Version Manager) and node
 # PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 # nvm install --lts && nvm use --lts
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+# Add `go' to path, if it exists
+if [[ -d "/usr/local/go/bin" ]]; then
+    [[ ":$PATH:" == *":/usr/local/go/bin:"* ]] || export PATH="$PATH:/usr/local/go/bin"
+fi
+PATH=$PATH:"$HOME/go/bin"
