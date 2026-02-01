@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Backup existing configs if they exist (and aren't already symlinks)
 backup_dir="$HOME/dotfiles_backup_$(date +%Y%m%d)"
 mkdir -p "$backup_dir"
