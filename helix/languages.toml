@@ -1,0 +1,46 @@
+# Toml
+[[language]]
+name = "toml"
+roots = ["."]
+formatter = { command = "taplo", args = ["fmt", "-"] }
+auto-format = true
+
+
+# Bash
+[[language]]
+name = "bash"
+formatter = { command = "shfmt", args = ["-i", "4"] }
+auto-format = true
+
+
+# Python
+[[language]]
+name = "python"
+auto-format = true
+formatter = { command = "black", args = ["-q", "-"] }
+
+
+# JavaScript
+[language-server.oxlint]
+command = "oxlint"
+args = ["--lsp"]
+
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server", "oxlint"]
+auto-format = true
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "%{buffer_name}",
+] }
+
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server", "oxlint"]
+auto-format = true
+formatter = { command = "prettier", args = [
+  "--stdin-filepath",
+  "%{buffer_name}",
+] }
