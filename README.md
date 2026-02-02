@@ -6,24 +6,28 @@ _Make sure Python 3 and Vim are installed on your system._
 
 ### Clone this repo to your homefolder:
 
-`cd && git clone git@github.com:thomasgrusz/dotfiles.git`
+```
+cd && git clone git@github.com:thomasgrusz/dotfiles.git
+```
 
 ### Install dotfiles:
 
-`bash ~/dotfiles/install_dotfiles.sh`
+```
+bash ~/dotfiles/install_dotfiles.sh
+```
 
 This will backup existing dotfiles in the home folder and create the symlinks below:
 
-```
-~/.bash_aliases -> ~/dotfiles/bash_aliases
-~/.bash_git_setup -> ~/dotfiles/bash_git_setup
-~/.bashrc -> ~/dotfiles/bashrc
-~/.git-completion.bash -> ~/dotfiles/git-completion.bash
-~/.gitconfig -> ~/dotfiles/gitconfig
-~/.git-prompt.sh -> ~/dotfiles/git-prompt.sh
-~/.vim -> ~/dotfiles/vim
-~/.vimrc -> ~/dotfiles/vimrc
-```
+|                          |     |                                  |
+| ------------------------ | --- | -------------------------------- |
+| `~/.bash_aliases`        | »   | `~/dotfiles/bash_aliases`        |
+| `~/.bash_git_setup`      | »   | `~/dotfiles/bash_git_setup`      |
+| `~/.bashrc`              | »   | `~/dotfiles/bashrc`              |
+| `~/.git-completion.bash` | »   | `~/dotfiles/git-completion.bash` |
+| `~/.gitconfig`           | »   | `~/dotfiles/gitconfig`           |
+| `~/.git-prompt.sh`       | »   | `~/dotfiles/git-prompt.sh`       |
+| `~/.vim`                 | »   | `~/dotfiles/vim`                 |
+| `~/.vimrc`               | »   | `~/dotfiles/vimrc`               |
 
 ### Install nvm (node version manager) and node
 
@@ -33,7 +37,11 @@ PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm
 nvm install --lts && nvm use --lts
 ```
 
-Check installation with `nvm -v && node -v`
+Check installation with:
+
+```
+nvm -v && node -v
+```
 
 ### Install Vim plugins (inside Vim), regularly update:
 
@@ -55,10 +63,10 @@ curl -fsSL https://github.com/artempyanykh/marksman/releases/latest/download/mar
 
 This will backup existing Helix configs in the home folder and create the symlinks below:
 
-```
-~/.config/helix/config.toml -> ~/dotfiles/helix/config.toml
-~/.config/helix/language.toml -> ~/dotfiles/helix/languages.toml
-```
+|                                 |     |                                   |
+| ------------------------------- | --- | --------------------------------- |
+| `~/.config/helix/config.toml`   | »   | `~/dotfiles/helix/config.toml`    |
+| `~/.config/helix/language.toml` | »   | `~/dotfiles/helix/languages.toml` |
 
 ---
 
