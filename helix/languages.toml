@@ -6,6 +6,12 @@ formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
 
+[[language]]
+name = "markdown"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+
+
 # Bash
 [[language]]
 name = "bash"
