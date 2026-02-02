@@ -18,7 +18,7 @@ bash ~/dotfiles/install_dotfiles.sh
 
 This will backup existing dotfiles in the home folder and create the symlinks below:
 
-|                          |     |                                  |
+| Source                   |     | Target                           |
 | ------------------------ | --- | -------------------------------- |
 | `~/.bash_aliases`        | »   | `~/dotfiles/bash_aliases`        |
 | `~/.bash_git_setup`      | »   | `~/dotfiles/bash_git_setup`      |
@@ -63,7 +63,7 @@ curl -fsSL https://github.com/artempyanykh/marksman/releases/latest/download/mar
 
 This will backup existing Helix configs in the home folder and create the symlinks below:
 
-|                                 |     |                                   |
+| Source                          |     | Target                            |
 | ------------------------------- | --- | --------------------------------- |
 | `~/.config/helix/config.toml`   | »   | `~/dotfiles/helix/config.toml`    |
 | `~/.config/helix/language.toml` | »   | `~/dotfiles/helix/languages.toml` |
