@@ -91,4 +91,4 @@ curl --proto '=https' --tlsv1.2 -fsSL "$URL" | install -D -m 755 /dev/stdin ~/.l
 
 npm install -g bash-language-server oxlint prettier typescript typescript-language-server --silent
 
-echo -e "\nHelix $(hx -V) installed. Run with: hx"
+echo -e "\nHelix $(~/.local/bin/hx -V) installed. Run with: hx"
