@@ -3,36 +3,22 @@ set -euo pipefail
 
 ## Install latest Helix pre-built binary (x86_64 Linux)
 
-# Get latest tag
-TAG=$(curl -s https://api.github.com/repos/helix-editor/helix/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+# Download Helix
+TMPDIR="/tmp/helix"
+mkdir -p "$TMPDIR"
+cd "$TMPDIR"
+URL=$(curl -s https://api.github.com/repos/helix-editor/helix/releases/latest | grep -oP '(?<="browser_download_url": ")[^"]+x86_64-linux\.tar\.xz')
+curl --proto '=https' --tlsv1.2 -fsSL "$URL" | tar -xJf - --strip-components=1 -C .
 
-# Dir and file
-DIR="helix-${TAG}-x86_64-linux"
-FILE="${DIR}.tar.xz"
-
-# Download
-curl -L -o "$FILE" "https://github.com/helix-editor/helix/releases/download/${TAG}/${FILE}"
-
-# Extract
-tar xf "$FILE"
-
-# Enter dir
-cd "$DIR"
-
-# Config dir
+# Install Helix
 mkdir -p "$HOME"/.config/helix
-
-# Copy runtime
 cp -r runtime "$HOME"/.config/helix/runtime
-
-# Install binary to ~/.local/bin
 mkdir -p "$HOME"/.local/bin
 cp hx "$HOME"/.local/bin/hx
 
-# Install bash completion
-COMPLETION_DIR="$HOME/.local/share/bash-completion/completions"
-mkdir -p "$COMPLETION_DIR"
-cp contrib/completion/hx.bash "$COMPLETION_DIR/hx"
+# Install bash completion for Helix
+mkdir -p "$HOME/.local/share/bash-completion/completions"
+cp contrib/completion/hx.bash "$HOME/.local/share/bash-completion/completions/hx"
 
 # shellcheck disable=SC2016
 # Ensure ~/.local/bin in PATH
@@ -42,10 +28,11 @@ if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
 fi
 
 # Cleanup
-cd ..
-rm -rf "$DIR" "$FILE"
+cd
+rm -rf "$TMPDIR"
 
 ## Install personal Helix config files from the dotfiles repo
+
 # Backup existing configs if they exist (and aren't already symlinks)
 backup_dir="$HOME/helix_configs_backup_$(date +%Y%m%d)"
 mkdir -p "$backup_dir"
@@ -77,4 +64,31 @@ done
 # Cleanup
 rmdir "$backup_dir" 2>/dev/null
 
-echo "Helix ${TAG} installed. Run with: hx"
+## Install dependencies for Helix
+
+curl --proto '=https' --tlsv1.2 -fsSL \
+    https://github.com/tamasfe/taplo/releases/latest/download/taplo-linux-x86_64.gz |
+    gzip -d - | install -D -m 755 /dev/stdin ~/.local/bin/taplo
+
+curl --proto '=https' --tlsv1.2 -fsSL \
+    https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux-x64 |
+    install -D -m 755 /dev/stdin ~/.local/bin/marksman
+
+curl --proto '=https' --tlsv1.2 -fsSL \
+    https://github.com/astral-sh/ty/releases/latest/download/ty-x86_64-unknown-linux-gnu.tar.gz |
+    tar xzf - -O | install -D -m 755 /dev/stdin ~/.local/bin/ty
+
+# sudo apt update -qq && sudo apt install shellcheck shfmt black
+URL="$(curl -s https://api.github.com/repos/koalaman/shellcheck/releases/latest | grep -oP '(?<="browser_download_url": ")[^"]+linux\.x86_64\.tar\.xz')"
+curl --proto '=https' --tlsv1.2 -fsSL "$URL" | tar -xJf - --strip-components=1 -C ~/.local/bin
+rm ~/.local/bin/LICENSE.txt ~/.local/bin/README.txt 2>/dev/null
+
+URL="$(curl -s https://api.github.com/repos/mvdan/sh/releases/latest | grep -oP '(?<="browser_download_url": ")[^"]+linux_amd64')"
+curl --proto '=https' --tlsv1.2 -fsSL "$URL" | install -D -m 755 /dev/stdin ~/.local/bin/shfmt
+
+URL="$(curl -s https://api.github.com/repos/psf/black/releases/latest | grep -oP '(?<="browser_download_url": ")[^"]+black_linux(?=")')"
+curl --proto '=https' --tlsv1.2 -fsSL "$URL" | install -D -m 755 /dev/stdin ~/.local/bin/black
+
+npm install -g bash-language-server oxlint prettier typescript typescript-language-server --silent
+
+echo -e "\nHelix $(hx -V) installed. Run with: hx"
