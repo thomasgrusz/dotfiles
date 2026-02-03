@@ -66,7 +66,7 @@ This will backup existing Helix configs in the home folder and create the symlin
 
 ## Start new Python project
 
-**Helix** does not requiree any further python dev packages. If you want to start a python project using **Vim** you need to run the alias `makevenv` from `~/.bash_aliases` which will instal `flake8` and `yapf` for linting and formatting.
+**Helix** does not requiree any further python dev packages. If you want to start a python project using **Vim** you need to `cd` into the project folder and run the alias `makevenv` (defined in `~/.bash_aliases`) which will install `flake8` and `yapf` for linting and formatting.
 
 ### in Vim
 
@@ -84,7 +84,7 @@ cd && mkdir myPythonproject && cd myPythonproject
 
 ## Start new JavaScript project
 
-`makejs` is an alias in `~/.bash_aliases` that locally installs node packages `eslint` and `prettier` needed for linting and formatting with Vim. Helix works with gloablly installed node packages.
+`makejs` is an alias that locally installs node packages `eslint` and `prettier` needed for linting and formatting with Vim. Helix works with already gloablly installed node packages.
 
 ### in Vim
 
