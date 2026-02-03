@@ -64,7 +64,7 @@ augroup END
 " Mappings
 nnoremap Q <nop>
 inoremap <C-U> <C-G>u<C-U>
-inoremap jj <esc>
+inoremap jk <esc>
 nnoremap Y y$
 noremap n nzz
 noremap N Nzz
