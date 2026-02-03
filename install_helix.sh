@@ -23,7 +23,7 @@ cp contrib/completion/hx.bash "$HOME/.local/share/bash-completion/completions/hx
 # shellcheck disable=SC2016
 # Ensure ~/.local/bin in PATH
 if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >>~/.bashrc
+    echo 'export [[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || export PATH="$PATH:$HOME/.local/bin"' >>~/.bashrc
     echo "Added ~/.local/bin to PATH in ~/.bashrc — run 'source ~/.bashrc' or restart terminal"
 fi
 

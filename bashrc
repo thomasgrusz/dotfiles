@@ -156,4 +156,9 @@ export NVM_DIR="$HOME/.nvm"
 if [[ -d "/usr/local/go/bin" ]]; then
     [[ ":$PATH:" == *":/usr/local/go/bin:"* ]] || export PATH="$PATH:/usr/local/go/bin"
 fi
-PATH=$PATH:"$HOME/go/bin"
+
+if [[ -d "$HOME/go/bin" ]]; then
+    [[ ":$PATH:" == *":$HOME/go/bin:"* ]] || export PATH="$PATH:$HOME/go/bin"
+fi
+
+[[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || export PATH="$PATH:$HOME/.local/bin"
