@@ -57,7 +57,6 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 " (%s)")\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -116,17 +115,21 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# [[ ":$PATH:" =~ :/sbin: ]] || export PATH="$PATH:/sbin"
+
 # Add sbin directories to PATH.  This is useful on systems that have sudo
-echo "$PATH" | grep -Eq "(^|:)/sbin(:|)" || PATH="$PATH":/sbin
-echo "$PATH" | grep -Eq "(^|:)/usr/sbin(:|)" || PATH="$PATH":/usr/sbin
+[[ ":$PATH:" =~ :/sbin: ]] || export PATH="$PATH:/sbin"
+[[ ":$PATH:" =~ :/usr/sbin: ]] || export PATH="$PATH:/usr/sbin"
 
 # Add my scripts folder in ~/.myscripts to PATH, if not there
 if [[ -d "$HOME/.myscripts" ]]; then
-    [[ ":$PATH:" == *":$HOME/.myscripts:"* ]] || export PATH="$PATH:$HOME/.myscripts"
+    [[ ":$PATH:" =~ :$HOME/.myscripts: ]] || export PATH="$PATH:$HOME/.myscripts"
 fi
 
 # Configure git
-source "$HOME"/.bash_git_setup
+if [[ -f "$HOME/.bash_git_setup" ]]; then
+    source "$HOME/.bash_git_setup"
+fi
 
 ## Install Pyenv - Python version control
 # curl -fsSL https://pyenv.run | bash
@@ -142,23 +145,27 @@ source "$HOME"/.bash_git_setup
 # sudo rm -rf /opt/nvim-linux-x86_64
 # sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 if [[ -d "/opt/nvim-linux-x86_64/bin" ]]; then
-    [[ ":$PATH:" == *":/opt/nvim-linux-x86_64/bin:"* ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+    [[ ":$PATH:" =~ :/opt/nvim-linux-x86_64/bin: ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 fi
 
 ## Install nvm (Node Version Manager) and node
 # PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 # nvm install --lts && nvm use --lts
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+# shellcheck source=/dev/null
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # Add `go' to path, if it exists
 if [[ -d "/usr/local/go/bin" ]]; then
-    [[ ":$PATH:" == *":/usr/local/go/bin:"* ]] || export PATH="$PATH:/usr/local/go/bin"
+    [[ ":$PATH:" =~ :/usr/local/go/bin: ]] || export PATH="$PATH:/usr/local/go/bin"
 fi
 
 if [[ -d "$HOME/go/bin" ]]; then
-    [[ ":$PATH:" == *":$HOME/go/bin:"* ]] || export PATH="$PATH:$HOME/go/bin"
+    [[ ":$PATH:" =~ :$HOME/go/bin: ]] || export PATH="$PATH:$HOME/go/bin"
 fi
 
-[[ ":$PATH:" == *":$HOME/.local/bin:"* ]] || export PATH="$PATH:$HOME/.local/bin"
+# Add ~/.local/bin to PATH
+[[ ":$PATH:" =~ :$HOME/.local/bin: ]] || export PATH="$PATH:$HOME/.local/bin"
