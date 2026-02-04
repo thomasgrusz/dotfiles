@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w$(__git_ps1 " (%s)")\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;92m\]\u@\h\[\033[00m\]:\[\033[01;94m\]\w$(__git_ps1 " (%s)")\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -115,8 +115,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# [[ ":$PATH:" =~ :/sbin: ]] || export PATH="$PATH:/sbin"
-
 # Add sbin directories to PATH.  This is useful on systems that have sudo
 [[ ":$PATH:" =~ :/sbin: ]] || export PATH="$PATH:/sbin"
 [[ ":$PATH:" =~ :/usr/sbin: ]] || export PATH="$PATH:/usr/sbin"
@@ -169,3 +167,41 @@ fi
 
 # Add ~/.local/bin to PATH
 [[ ":$PATH:" =~ :$HOME/.local/bin: ]] || export PATH="$PATH:$HOME/.local/bin"
+
+# ---
+
+# ANSI Color Codes for Terminal (FG: Foreground, BG: Background)
+
+# FG  BG   Name
+
+# 30  40   Black
+
+# 31  41   Red
+
+# 32  42   Green
+
+# 33  43   Yellow
+
+# 34  44   Blue
+
+# 35  45   Magenta
+
+# 36  46   Cyan
+
+# 37  47   White
+
+# 90  100  Bright Black (Gray)
+
+# 91  101  Bright Red
+
+# 92  102  Bright Green
+
+# 93  103  Bright Yellow
+
+# 94  104  Bright Blue
+
+# 95  105  Bright Magenta
+
+# 96  106  Bright Cyan
+
+# 97  107  Bright White
