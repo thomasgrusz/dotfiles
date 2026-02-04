@@ -6,7 +6,7 @@
 	l = log --oneline
 	ll = log --oneline --all --graph
 	ac = !git add -A && git commit -m
-	s = status
+	s = status -sb
 	b = branch
 	pruneupstream = !git remote update --prune && git branch -vv | awk \"/: gone]/{print $1}\" | xargs git branch -d
 [core]
