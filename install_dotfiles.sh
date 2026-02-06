@@ -1,60 +1,57 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
+# Backs up and removes existing dotfiles, creates/verifies symlinks to ~/dotfiles
 set -euo pipefail
 
-# Backup existing configs if they exist (and aren't already symlinks)
+# Comment in for debugging
+# trap 'echo "Error on line $LINENO"' ERR
+
+# Colors
+RED='\033[31m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+BLUE='\033[94m'
+RESET='\033[0m'
+
 backup_dir="$HOME/dotfiles_backup_$(date +%Y%m%d)"
 mkdir -p "$backup_dir"
 
-# Array for files (stored without dot in dotfiles)
-files=("bash_aliases" "bash_git_setup" "bashrc" "git-completion.bash" "gitconfig" "git-prompt.sh" "vimrc")
+# Subfolders, like `config/helix', contain files/folders (`runtime/')
+# which are not managed by the dotfiles repo. Such subfolders must not be
+# included in the items array as `folders', but with an individual file at
+# the end. The `vim' folder is different, as it is entirely managed by the
+# dotfiles repo.
+items=("bash_aliases" "bash_git_setup" "bashrc" "dircolors" "git-completion.bash" "gitconfig" "git-prompt.sh" "vimrc" "vim"
+    "config/alacritty/alacritty.toml"
+    "config/helix/config.toml"
+    "config/helix/languages.toml")
 
-# Backup files
-for file in "${files[@]}"; do
-    dot_file="$HOME/.${file}"
-    if [ -f "$dot_file" ] && [ ! -L "$dot_file" ]; then
-        mv "$dot_file" "$backup_dir/$file"
-        echo "Backed up $dot_file to $backup_dir"
+# Backup existing configs if they exist and aren't symlinks
+for item in "${items[@]}"; do
+    dot_path="$HOME/.$item"
+    if [ -e "$dot_path" ] && [ ! -L "$dot_path" ]; then
+        mkdir -p "$(dirname "$backup_dir/$item")"
+        mv "$dot_path" "$backup_dir/$item"
+        echo -e "Backed up ${YELLOW}~${dot_path#"$HOME"}${RESET} to ${YELLOW}~${backup_dir#"$HOME"}${RESET}"
     fi
 done
 
-# Array for directories
-dirs=("vim")
-
-# Backup directories
-for dir in "${dirs[@]}"; do
-    dot_dir="$HOME/.${dir}"
-    if [ -d "$dot_dir" ] && [ ! -L "$dot_dir" ]; then
-        mv "$dot_dir" "$backup_dir/$dir"
-        echo "Backed up $dot_dir to $backup_dir"
-    fi
-done
-
-# Create symlinks for files (with check)
-for file in "${files[@]}"; do
-    dot_file="$HOME/.${file}"
-    target="$HOME/dotfiles/$file"
-    if [ -L "$dot_file" ] && [ "$(readlink "$dot_file")" = "$target" ]; then
-        echo "Symlink $dot_file already correct, skipping."
+# Create/verify symlinks
+for item in "${items[@]}"; do
+    dot_path="$HOME/.$item"
+    target="$HOME/dotfiles/$item"
+    if [ ! -e "$target" ]; then
+        echo -e "Target ${RED}~${target#"$HOME"}${RESET} does not exist, skipping."
         continue
     fi
-    ln -sf "$target" "$dot_file"
-    echo "Symlink $dot_file created."
-done
-
-# Create symlinks for directories (with check)
-for dir in "${dirs[@]}"; do
-    dot_dir="$HOME/.${dir}"
-    target="$HOME/dotfiles/$dir"
-    if [ -L "$dot_dir" ] && [ "$(readlink "$dot_dir")" = "$target" ]; then
-        echo "Symlink $dot_dir already correct, skipping."
+    if [ -L "$dot_path" ] && [ "$(readlink "$dot_path")" = "$target" ]; then
+        echo -e "Symlink ${BLUE}~${dot_path#"$HOME"}${RESET} already correct, skipping."
         continue
     fi
-    ln -sf "$target" "$dot_dir"
-    echo "Symlink $dot_dir created."
+    mkdir -p "$(dirname "$dot_path")"
+    ln -sf "$target" "$dot_path"
+    echo -e "Symlink ${GREEN}~${dot_path#"$HOME"}${RESET} created."
 done
 
 # Remove backup folder if empty
-rmdir "$HOME/dotfiles_backup_$(date +%Y%m%d)" 2>/dev/null
-
-echo "Symlinks created/verified. Configs are now managed via ~/dotfiles."
+rmdir "$backup_dir" 2>/dev/null || true
+echo -e "\n${GREEN}Symlinks created/verified. Configs are now managed via ~/dotfiles.${RESET}"
