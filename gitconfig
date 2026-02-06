@@ -5,6 +5,7 @@
 [alias]
 	l = log --oneline
 	ll = log --oneline --all --graph
+	la = log --oneline --name-only
 	ac = !git add -A && git commit -m
 	s = status -sb
 	b = branch
