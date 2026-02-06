@@ -2,6 +2,12 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Colors
+# The `1;' before the color code = `bold'
+GREEN='\[\033[1;92m\]'
+BLUE='\[\033[1;94m\]'
+RESET='\[\033[0m\]'
+
 # If not running interactively, don't do anything
 case $- in
 *i*) ;;
@@ -57,7 +63,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;92m\]\u@\h\[\033[00m\]:\[\033[01;94m\]\w$(__git_ps1 " (%s)")\[\033[00m\]\$ '
+    PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u@\h${RESET}:${BLUE}\w\$(__git_ps1 ' (%s)')${RESET}\$ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -205,3 +211,5 @@ fi
 # 96  106  Bright Cyan
 
 # 97  107  Bright White
+
+# 0 Reset
