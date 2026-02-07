@@ -10,7 +10,7 @@ call plug#begin()
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'dense-analysis/ale'
 
@@ -32,7 +32,7 @@ augroup END
 
 " General options
 set background=dark
-silent! colorscheme gruvbox
+silent! colorscheme zaibatsu
 set showcmd
 set ignorecase smartcase incsearch hlsearch
 set hidden mouse=a wildmenu timeoutlen=500 ttimeout ttimeoutlen=100
