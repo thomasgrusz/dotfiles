@@ -2,17 +2,17 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Colors
-# The `1;' before the color code = `bold'
-GREEN='\[\033[1;92m\]'
-BLUE='\[\033[1;94m\]'
-RESET='\[\033[0m\]'
-
 # If not running interactively, don't do anything
 case $- in
 *i*) ;;
 *) return ;;
 esac
+
+# Colors
+# The `1;' before the color code = `bold'
+GREEN='\[\033[1;92m\]'
+BLUE='\[\033[1;94m\]'
+RESET='\[\033[0m\]'
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -149,7 +149,6 @@ fi
 # sudo rm -rf /opt/nvim-linux-x86_64
 # sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 if [[ -d "/opt/nvim-linux-x86_64/bin" ]]; then
-
     [[ ":$PATH:" =~ :/opt/nvim-linux-x86_64/bin: ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 fi
 
