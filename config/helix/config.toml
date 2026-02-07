@@ -5,8 +5,18 @@ line-number = "relative"
 mouse = false
 bufferline = "multiple"
 
-[keys.normal]
-esc = ["collapse_selection", "keep_primary_selection"]
-
 [editor.cursor-shape]
 insert = "bar"
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+y = ":clipboard-yank"
+d = ["yank_to_clipboard", "delete_selection_noyank"]
+p = ":clipboard-paste-after"
+P = ":clipboard-paste-before"
+
+[keys.select]
+y = ":clipboard-yank"
+d = ["yank_to_clipboard", "delete_selection_noyank"]
+p = ":clipboard-paste-after"
+P = ":clipboard-paste-before"
