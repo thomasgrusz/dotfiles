@@ -16,24 +16,30 @@ cd && git clone git@github.com:thomasgrusz/dotfiles.git
 bash ~/dotfiles/install_dotfiles.sh
 ```
 
-This will backup existing dotfiles in the home folder and create the symlinks below:
+The following dotfiles will be replace with symlinks to `~/dotfiles`. Your original dotfiles will be backed up in a new folder inside home (`~`).
 
-| Source                 |     | Target                         |
-| ---------------------- | --- | ------------------------------ |
-| ~/.bash_aliases        | »   | ~/dotfiles/bash_aliases        |
-| ~/.bash_git_setup      | »   | ~/dotfiles/bash_git_setup      |
-| ~/.bashrc              | »   | ~/dotfiles/bashrc              |
-| ~/.git-completion.bash | »   | ~/dotfiles/git-completion.bash |
-| ~/.gitconfig           | »   | ~/dotfiles/gitconfig           |
-| ~/.git-prompt.sh       | »   | ~/dotfiles/git-prompt.sh       |
-| ~/.vim                 | »   | ~/dotfiles/vim                 |
-| ~/.vimrc               | »   | ~/dotfiles/vimrc               |
+| dotfiles                           |
+| ---------------------------------- |
+| ~/.bash_aliases                    |
+| ~/.bash_git_setup                  |
+| ~/.bashrc                          |
+| ~/.dircolors                       |
+| ~/.git-completion.bash             |
+| ~/.gitconfig                       |
+| ~/.git-prompt.sh                   |
+| ~/.vimrc                           |
+| ~/.vim/                            |
+| ~/.config/alacritty/alacritty.toml |
+| ~/.config/helix/config.toml        |
+| ~/.config/helix/languages.toml     |
 
 ### Install nvm (node version manager) and node
 
 ```
-PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh \
+PROFILE=/dev/null bash -c \
+  'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh \
   | bash'
+
 nvm install --lts && nvm use --lts
 ```
 
@@ -55,47 +61,28 @@ nvm -v && node -v
 cd && bash ~/dotfiles/install_helix.sh
 ```
 
-This will backup existing Helix configs in the home folder and create the symlinks below:
-
-| Source                          |     | Target                            |
-| ------------------------------- | --- | --------------------------------- |
-| `~/.config/helix/config.toml`   | »   | `~/dotfiles/helix/config.toml`    |
-| `~/.config/helix/language.toml` | »   | `~/dotfiles/helix/languages.toml` |
-
 ---
 
-## Start new Python project
+## New Python or JavaScript projects
 
-**Helix** does not requiree any further python dev packages. If you want to start a python project using **Vim** you need to `cd` into the project folder and run the alias `makevenv` (defined in `~/.bash_aliases`) which will install `flake8` and `yapf` for linting and formatting.
+**Helix** does not requiree any further python or javascript dev packages. Just create a project folder `cd `into it and start coding.
 
-### in Vim
+**Vim** on the other hand needs dev packages that can be installed via an alias (defined in `~/.bash_aliases`):
+
+##### Python
+
+`makevenv` will install `flake8` and `yapf` for linting and formatting.
 
 ```
 cd && mkdir myPythonproject && cd myPythonproject
 makevenv
 ```
 
-### in Helix
+##### JavaScript
 
-```
-cd && mkdir myPythonproject && cd myPythonproject
-# no need for installing dependencies
-```
-
-## Start new JavaScript project
-
-`makejs` is an alias that locally installs node packages `eslint` and `prettier` needed for linting and formatting with Vim. Helix works with already gloablly installed node packages.
-
-### in Vim
+`makejs` will install the node packages `eslint` and `prettier` for linting and formatting.
 
 ```
 cd && mkdir myJSproject && cd myJSproject
 makejs
-```
-
-### in Helix
-
-```
-cd && mkdir myJSproject && cd myJSproject
-# no need for installing dependencies
 ```
