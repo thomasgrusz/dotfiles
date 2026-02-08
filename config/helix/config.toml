@@ -6,10 +6,37 @@ mouse = false
 bufferline = "multiple"
 
 [editor.cursor-shape]
-insert = "bar"
+# insert = "bar"
+
+[editor.file-picker]
+hidden = false
+
+# [editor.whitespace]
+# render = "all"
+#
+# or control each character
+#
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+# nbsp = "none"
+# nnbsp = "none"
+# newline = "none"
+
+# [editor.whitespace.characters]
+# space = "·"
+# nbsp = "⍽"
+# nnbsp = "␣"
+# tab = "→"
+# newline = "⏎"
+# tabpad = "·"  # Tabs will look like "→···" (depending on tab width)
+
+[editor.soft-wrap]
+enable = true
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
+C-s = ":write"                                         # Ctrl and 's' to write
 y = ":clipboard-yank"
 d = ["yank_to_clipboard", "delete_selection_noyank"]
 p = ":clipboard-paste-after"
@@ -20,3 +47,6 @@ y = ":clipboard-yank"
 d = ["yank_to_clipboard", "delete_selection_noyank"]
 p = ":clipboard-paste-after"
 P = ":clipboard-paste-before"
+
+[keys.insert.j]
+k = "normal_mode" # Maps `jk` to exit insert mode
