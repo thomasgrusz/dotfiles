@@ -1,15 +1,14 @@
-# Toml
+# toml
 [[language]]
 name = "toml"
-roots = ["."]
 formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
 
 [[language]]
 name = "markdown"
-auto-format = true
 formatter = { command = "prettier", args = ["--parser", "markdown"] }
+auto-format = true
 
 
 # Bash
@@ -19,18 +18,37 @@ formatter = { command = "shfmt", args = ["-i", "4"] }
 auto-format = true
 
 
+# C
+# Install C lsp and formatter:
+#   sudo apt install clangd clang-format
+[[language]]
+name = "c"
+formatter = { command = "clang-format" }
+auto-format = true
+
+
+# Rust
+# Install rust:
+#   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Install rust lsp `rust-analyzer':
+#   rustup component add rust-analyzer
+[[language]]
+name = "rust"
+formatter = { command = "rustfmt", args = ["--edition=2024"] }
+auto-format = true
+
+
 # Python
 [[language]]
 name = "python"
-auto-format = true
 formatter = { command = "black", args = ["-q", "-"] }
+auto-format = true
 
 
 # JavaScript
 [language-server.oxlint]
 command = "oxlint"
 args = ["--lsp"]
-
 
 [[language]]
 name = "javascript"
@@ -42,6 +60,7 @@ formatter = { command = "prettier", args = [
 ] }
 
 
+# Typescript
 [[language]]
 name = "typescript"
 language-servers = ["typescript-language-server", "oxlint"]
