@@ -1,0 +1,73 @@
+# ORIGINAL
+#
+##!/bin/bash
+#
+## Program to convert hexadecimals numbers to decimals and vice versa
+## conditional branching depending on how the script was invoked, i.e. hex2dec or dec2hex
+#input_command=$0
+#input_number=$1
+#
+#if [[ $(basename $input_command) = "hex2dec" ]]; then
+#    echo "Hex to decimal: $input_number = $((16#$input_number))."
+#else
+#    printf "Decimal to hex: %02d = %02X\n" $input_number $input_number
+#fi
+#exit 0
+
+#!/bin/bash
+
+
+########################################################################################
+# IMPROVED
+
+# Hex to Decimal and Decimal to Hex Converter
+
+# Usage instructions
+usage() {
+    echo "Usage:"
+    echo "  hex2dec <hex_number> - Convert hexadecimal to decimal"
+    echo "  dec2hex <decimal_number> - Convert decimal to hexadecimal"
+    exit 1
+}
+
+# Check if arguments are provided
+if [ $# -ne 1 ]; then
+    usage
+fi
+
+# Determine the operation based on the first argument
+operation=$(basename "$0")
+number="$1"
+
+# Function to convert hex to decimal
+hex_to_dec() {
+    if [[ ! $number =~ ^[0-9A-Fa-f]+$ ]]; then
+        echo "Error: Invalid hexadecimal number. Use only 0-9, A-F."
+        exit 1
+    fi
+    echo "Hex to decimal: $number = $((16#$number))"
+}
+
+# Function to convert decimal to hex
+dec_to_hex() {
+    if [[ ! $number =~ ^[0-9]+$ ]]; then
+        echo "Error: Invalid decimal number. Use only digits 0-9."
+        exit 1
+    fi
+    printf "Decimal to hex: %d = %02X\n" "$number" "$number"
+}
+
+case "$operation" in
+    hex2dec)
+        hex_to_dec
+        ;;
+    dec2hex)
+        dec_to_hex
+        ;;
+    *)
+        echo "Error: Unknown operation. Use 'hex2dec' or 'dec2hex'."
+        usage
+        ;;
+esac
+
+exit 0

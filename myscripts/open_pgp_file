@@ -1,0 +1,6 @@
+#!/bin/bash
+# use gpg to prompt the user for a passphrase
+# to decrypt the file and pipe the contents
+# into a gui read-only vim text editor
+gpg --decrypt "$@" | gview -y -
+gpgconf --kill gpg-agent

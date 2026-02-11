@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Set daytime color temp (default)
+color_temp=6500
+sunfile="/home/thomasgrusz/.myscripts/sunrise_sunset.txt"
+
+determine_color_temp() {
+	# If the sunfile exists, is readable and not empty
+	if [ -r $sunfile ] && [ -s $sunfile ]; then
+		SUNRISE=$(sed -n '1p' $sunfile)
+		SUNSET=$(sed -n '2p' $sunfile)
+		sunrise_in_seconds=$(date -d "$SUNRISE" +%s)
+		sunset_in_seconds=$(date -d "$SUNSET" +%s)
+		current_time_in_seconds=$(date +%s)
+		if [ "$current_time_in_seconds" -lt "$sunrise_in_seconds" ] || [ "$current_time_in_seconds" -gt "$sunset_in_seconds" ] ; then
+			# Set nighttime color temp
+			color_temp=4500
+		fi
+	fi
+}
+
+decrease_brightness() {
+	# Get current screen brightness
+	cb=$(xsct | awk '{ print $6}')
+	
+	# Check if current screen brightness is above 0.1, if yes, decrease by 0.1
+	if (( $(echo "$cb > 0.2" | bc -l ) )); then
+		nb=$(echo "$cb - 0.1" | bc)
+		xsct $color_temp $nb
+	fi
+}
+
+increase_brightness() {
+	# Get current screen brightness
+	cb=$(xsct | awk '{ print $6}')
+	
+	# Check if current screen brightness is below 1, if yes, increase by 0.1
+	if (( $(echo "$cb < 1" | bc -l ) )); then
+		nb=$(echo "$cb + 0.1" | bc)
+		xsct $color_temp $nb
+	fi
+}
+
+# Check if an argument was provided
+if [ $# -eq 0 ]; then
+	echo "No argument provided. Please use 'up' or 'down'."
+	exit 1
+fi
+
+# Check the value of the first argument
+case $1 in
+	"up")
+		determine_color_temp
+		increase_brightness
+		;;
+	"down")
+		determine_color_temp
+		decrease_brightness
+		;;
+	*)
+		echo "Invalid argument. Use 'up' or 'down'."
+		exit 1
+		;;
+esac

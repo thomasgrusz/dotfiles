@@ -1,0 +1,3 @@
+videofile=$1
+audiofile=$(basename -s .mp4 "$videofile").m4a
+ffmpeg -i "$videofile" -i "$audiofile" -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
