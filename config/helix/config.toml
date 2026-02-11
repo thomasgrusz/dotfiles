@@ -38,6 +38,17 @@ tab = "all"
 [editor.soft-wrap]
 enable = true
 
+[editor.statusline]
+center = ["version-control", "separator", "file-type"]
+right = [
+  "diagnostics",
+  "selections",
+  "register",
+  "position-percentage",
+  "position",
+  "file-encoding",
+]
+
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
 C-s = ":write"                                         # Ctrl and 's' to write
