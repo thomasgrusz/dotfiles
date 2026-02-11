@@ -1,9 +1,13 @@
 theme = "starlight"
+# theme = "base16_terminal"
 
 [editor]
 line-number = "relative"
 mouse = false
 bufferline = "multiple"
+
+[editor.search]
+# smart-case = false  # uncomment to make search fully case sensitive
 
 [editor.cursor-shape]
 # insert = "bar"
@@ -41,6 +45,8 @@ y = ":clipboard-yank"
 d = ["yank_to_clipboard", "delete_selection_noyank"]
 p = ":clipboard-paste-after"
 P = ":clipboard-paste-before"
+# Pop up window with the current line's git blame information.
+space.B = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
 
 [keys.select]
 y = ":clipboard-yank"
