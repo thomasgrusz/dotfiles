@@ -5,6 +5,7 @@ theme = "starlight"
 line-number = "relative"
 mouse = false
 bufferline = "multiple"
+true-color = true
 
 [editor.search]
 # smart-case = false  # uncomment to make search fully case sensitive
