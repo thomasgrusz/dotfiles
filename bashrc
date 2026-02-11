@@ -171,7 +171,14 @@ if [[ -d "$HOME/go/bin" ]]; then
 fi
 
 # Add ~/.local/bin to PATH
-[[ ":$PATH:" =~ :$HOME/.local/bin: ]] || export PATH="$PATH:$HOME/.local/bin"
+if [[ -d "$HOME/.local/bin" ]]; then
+    [[ ":$PATH:" =~ :$HOME/.local/bin: ]] || export PATH="$PATH:$HOME/.local/bin"
+fi
+
+# Source ~/.cargo/env if exists (rust)
+if [[ -f "HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
+fi
 
 # ---
 
