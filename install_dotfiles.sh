@@ -20,7 +20,7 @@ mkdir -p "$backup_dir"
 # included in the items array as `folders', but with an individual file at
 # the end. The `vim' folder is different, as it is entirely managed by the
 # dotfiles repo.
-items=("bash_aliases" "bash_git_setup" "bashrc" "dircolors" "git-completion.bash" "gitconfig" "git-prompt.sh" "vimrc" "vim" "myscripts" "cheatsheets"
+items=("bash_aliases" "bash_git_setup" "bashrc" "dircolors" "git-completion.bash" "gitconfig" "git-prompt.sh" "vimrc" "vim" "myscripts"
     "config/alacritty/alacritty.toml"
     "config/helix/config.toml"
     "config/helix/languages.toml")
