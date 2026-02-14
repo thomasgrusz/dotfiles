@@ -1,0 +1,237 @@
+ARCH LINUX - Base Install
+*************************
+
+setup keyboard
+--------------
+localectl list-keymaps                                                          show available keymaps
+ls /usr/share/kbd/keymaps/**/*.map.gz                                           list available keymaps
+ls /usr/share/kbd/consolefonts/ | less                                          list available console fonts
+loadkeys de_CH-latin1                                                           set Swiss German keymap
+setfont ter-118n                                                                set console font to Terminus font 'ter-118n.psf.gz
+
+
+setup wifi
+----------
+iwctl                                                                           enter interactive mode for wifi-tool
+
+device list                                                                     list wifi adapters
+(if wifi adapter does not show up, it is probably due to a driver blocking it, use 'rfkill unblock wifi`)
+station wlan0 get-networks                                                      get list of networks
+station wlan0 connect WIFINAME                                                  connect to your wifi (enter passname)
+CTRL-D to exit
+
+Instructions for Macbook pro mid-2009:
+By default the wifi card driver 'wl' is loaded, but blocked by the other driver b43 and the file 'broadcom-wl.conf` in /etc/modprobe.d/.
+That's why 'ip link` does not show the wireless network card.
+Delete the file, unload the 'b43` kernel module, then unload and reload the 'wl` kernel module.
+rm /etc/modprobe.d/broadcom-wl.conf
+modprobe -r b43 wl
+moprobe wl
+systemctl restart iwd.service
+
+install the 'broadcom-wl` or 'broadcom-wl-dkms' package once arch-chroot'ed in.
+
+
+check internet connection
+-------------------------
+ip a                                                                            check if we have an ip address assigned by the dhcp server
+ping google.com                                                                 check if dns resolution works and we can reach google's servers
+
+
+create password for root user
+-----------------------------
+passwd                                                                          create password for root
+(now we could use ssh to log into the arch installer using the root account with the assigned ip from above)
+
+
+set time and date
+-----------------
+tzselect                                                                        identify your timezone
+timedatectl list-timezones                                                      identify your timezone
+
+timedatectl set-timezone Europe/Zurich                                          set your timezone
+timedatectl set-ntp 1                                                           activate network-timeprotocol (syncing with web time server)
+
+
+disk partition
+--------------
+In case of UEFI (most common in modern systems) we need an EFI boot partition with a FAT filesystem, as well as a root partition.
+ls /sys/firmware/efi/efivars                                                    check if we are booted in UEFI mode (ok, if folder contents are listed)
+lsblk                                                                           list block devices available
+blkid /dev/sda1                                                                 in case there is already a suspected UEFI partition (sda1), display relevant info about it
+fdisk /dev/sda                                                                  partition disk
+
+
+format disk with filesystems
+----------------------------
+mkfs.fat -F32 -S 4096 /dev/sda1                                                 format EFI partition with an vfat (FAT43) format using 4KiG as logical block size (check disk before with 'fdisk -l)`
+mkfs.btrfs /dev/sda2                                                            format the root partition with the btrfs filesystem
+
+
+mount /dev/sda2 /mnt                                                            mount root partition
+cd /mnt                                                                         enter root partition
+btrfs subvolume create @                                                        create the root subvolume
+btrfs subvolume create @home                                                    create the home subvolume
+cd                                                                              return to root archiso
+umount /mnt                                                                     unmount the root partition
+mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async,subvol=@ /dev/sda2 /mnt                 mount the root subvolume
+mkdir /mnt/home                                                                                         create home directory
+mount -o noatime,ssd,space_cache=v2,compress=zstd,discard=async,subvol=@home /dev/sda2 /mnt/home        mount the root subvolume
+
+btrfs subvolume show /mnt                                                       list the newly created subvolumes
+btrfs subvolume show /mnt/home                                                  list the newly created subvolumes
+
+mkdir -p /mnt/boot/efi                                                          create directories for boot loader and efi partition
+mount /dev/sda1 /mnt/boot/efi                                                    mount efi partition
+
+
+choose fastest mirrors for package repo
+---------------------------------------
+reflector --country Switzerland --age 6 --sort rate --save /etc/pacman.d/mirrorlist         save local mirrorlist in file sorted by speed (rate), updated not more than 6h ago
+pacman -Sy                                                                                  synchronize the repos and check the connection at the same time 
+
+
+install packages
+----------------
+pacstrap -K /mnt base linux btrfs-progs vim                                     ackages and an empty pacman keyring on the root partition
+
+base                basic archilinux
+linux               latest linux kernel
+btrfs-progs         btrfs utilities
+vim                 editor
+linux-firmware      firmware
+intel-ucode         intel-microcode
+
+
+generate filesystem table
+-------------------------
+genfstab -U /mnt >> /mnt/etc/fstab                                              create fstab file using UUIDs
+
+
+change root into our new installation of arch
+---------------------------------------------
+arch-chroot /mnt                                                                 change root into new arch installation root folder
+
+
+configure the new system
+------------------------
+ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime                         set local timezone
+hwclock --systohc
+uncomment "en_US.UTF-8 UTF 8" in /etc/locale.gen                                mark the locales we want to have generated by locale-gen
+locale-gen                                                                      generate the locale
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf                                          set locale
+echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf                                set keymap
+
+
+echo "arch" > /etc/hostname                                                     set hostname
+passwd                                                                          set root passwd
+
+pacman -S <packages>                                                            install packages you want
+grub                                boot loader
+grub-btrfs                          include btrfs snapshots in GRUB boot options (in case of a btrfs root filesystem)
+efibootmgr                          NVRAM boot order tool
+networkmanager                      network utility
+network-manager-applet              applet for desktop
+dialog                              a tool to display dialog boxes from shell scripts
+wpa_supplicant                      a utility providing key negotiation for WPA wireless networks (required by network manager)
+reflector                           a Python 3 module and script to retrieve and filter the latest Pacman mirror list
+base-devel                          basic tools to build Arch Linux packages
+linux-headers                       headers and scripts for building modules for the Linux kernel
+bluez                               bluetooth daemons
+bluez-utils                         bluetooth utilities
+cups                                common unix printing service
+hplip                               drivers for HP
+alsa-utils                          Advanced Linux Sound Architecture - utilities
+pipewire                            low-latency audio/video router and processor
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+bash-completion                     programmable completion for the bash shell
+openssh                             secure shell for remote login
+rsync                               backup utility
+acpi                                client for battery, power, and thermal readings
+acpid                               a daemon for delivering ACPI power management events with netlink support
+acpi_call                           a linux kernel module that enables calls to ACPI methods through /proc/acpi/call
+tlp                                 Linux Advanced Power Management
+os-prober                           Utility to detect other OSes on a set of drives
+nvidia                              latest nvidia drivers
+nvidia-utils
+nvidia-settings
+man                                 man pages -> 1) man-db
+xdg-utils                           Command line tools that assist applications with a variety of desktop integration tasks (and folders like Downloads..)
+xdg-user-dirs                       Manage user directories like ~/Desktop and ~/Music
+
+sof-firmware                        sound package for Dell laptops
+mtools                              a collection of utilities to access MS-DOS disks
+dosfstools                          DOS filesystem utilities
+ntfs-3g                             NTFS filesystem driver and utilities
+
+systemctl enable NetworkManager     activate network manager at next boot
+systemctl enable cups               activate print server
+systemctl enable sshd               activate ssh server
+systemctl enable tlp                activate tlp service
+systemctl enable reflector.timer    activate the reflector timer
+systemctl enable fstrim.timer       acitvate ssd trimmer timer
+systemctl enable acpid              activate acpi daemon
+
+
+useradd -m thomasgrusz              create user
+passwd thomasgrusz                  set password for user
+visudo                              edit the /etc/sudoers file to activate sudoers or wheel group
+usermod -aG sudo                    add user to sudoers group
+
+or simply create a sudoers file for the user thomasgrusz:
+/etc/sudoers.d/thomasgrusz:
+thomasgrusz ALL=(ALL:ALL) NOPASSWD: ALL
+
+
+install grub bootloader
+-----------------------
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB         install grub boot loader on root filesystem / efi partition (the arguments are defaults)
+grub-mkconfig -o /boot/grub/grub.cfg                                                    install a grub configuration for our system (os-prober is off by default)
+
+to enable os-prober when using grub-mkconfig we have to uncomment a line in grub configuration file:
+/etc/default/grub:
+GRUB_DISABLE_OS_PROBER=false
+
+
+exit                                exit the filesystem
+umount -R /mnt                      recursively unmount all partitions
+reboot
+
+nmtui                               configure wifi with password
+ip a                                check if we have an ip address
+
+grub-mkconfig -o /boot/grub/grub.cfg    rerun grub-install so it finds other operating system installed on the disk
+
+
+install timeshift and timeshift_autosnap backup utilites from the AUR user repository
+-------------------------------------------------------------------------------------
+pacman -S git                                   install git
+git clone https://aur.archlinux.org/yay-bin     install yay (AUR download helper)
+cd yay-bin
+makepkg -si                                     compile yay package
+cd
+yay                                                         update AUR repo
+yay -S timeshift-bin timeshift-autosnap                     install timeshift and autosnap
+timeshift --list-devices                                    list devices
+timeshift --snapshot-device /dev/sda2                       choose snapshot device
+timeshift --create --comments "First Backup" --tags D       create on-demand snapshot of system
+These on-demand snapshots are not listed in GRUB, only the ones before a system upgrade.
+If we want on-demand snapshot to also be listed by GRUB, we need to run this command after taking an on-demand snapshot:
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+make swapfile
+-------------
+touch /swapfile                                             create a swapfile
+truncate -s 0 /swapfile                                     empty /swapfile to 0B
+chattr +C /swapfile                                         remove copy-on-write attribute, this is necessary if the root filesystem is btrfs
+fallocate -l 2G /swapfile                                   increase size of swapfile to 2GiB
+chmod 0600 /swapfile                                        assign required permissions
+mkswap /swapfile                                            make a swapfile out of /swapfile
+swapon /swapfile                                            turn swapfile on
+
+to make it permanent add the following to
+/etc/fstab:
+/swapfile none swap sw 0 0

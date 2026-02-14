@@ -1,0 +1,252 @@
+Vim
+===
+
+Good site for vim colorschemes: https://vimcolorschemes.com/
+Good site for vim plugins: https://vimawesome.com
+
+
+config files:
+-------------
+/etc/vim/vimrc				system wide configs
+/usr/share/vim/vim91/debian.vim		debian specific settings
+~/.vimrc                                user configs
+~/.vim/pack/myplugins/{start,opt}       from git version 8.0+ native ability to handle plugins
+                                        just clone the git repo into the 'start` folder for autoloading or
+                                        clone the git repo into 'opt` folder and start on demandh ':packadd nerdtree`
+                                        'myplugins' is an arbitrary foldername for grouping plugins
+commands:
+---------
+:scriptnames                            list sourced config files and vim scripts
+:set runtimepath?                       list all folders vim looks for config files in
+:echo $VIMRUNTIME			-> /usr/share/vim/vim91/
+:set					show all options
+:echo g:				show global variables
+:function				show all defined functions
+:map					show all key binding except insert/command mode
+:imap					show all key bindings for insert mode
+
+/                                       search forward
+?                                       search backwards
+/\V.                                    search for literal dot '.' with magic mode disabled (\V)
+/\.                                     search for literal dot . (escaped)
+/\<i                                    search words beginning with 'i'
+:%s/old/new/g                           global text replacement
+:s/old/new/g                            text replacement on current line
+:10,15s/old/new/g                       text replacement on lines 10-15 inclusive
+:10,$s/old/new/gc                       text replacement on lines 10-end with confirmation
+:/SEARCHTERM/e+2                        search end of searchterm plus 2 characters
+:/SEARCHTERM/b+2                        search beginning of searchterm plus 2 characters
+:/SEARCHTERM/+2                         search searchterm plus 2 lines down
+:/SEARCHTERM/-2                         search searchterm plus 2 lines up
+
+*                                       search for word under cursor
+#                                       search backwards for word under cursor
+
+!ctags -R FOLDER                        create tags for a folder in terminal
+:tag ex_echo                            go to tag in FOLDER/file, i.e. function 'ex_echo'
+<ctrl-x]> SOMETHING-TAGGED              context menu of existing tags starting w SOMETHING
+<ctrl-xf> FILENAME                      get list of files
+gf                                      go to file under cursor (back: <ctrl-o>)
+<ctrl-w>f                               open file under cursor in new window
+
+:e <file>                               open file in new buffer (in same window)
+:enew                                   open empty new buffer
+:split                                  split window horizontally
+:vsplit                                 split window vertically
+:new                                    open a new, empty buffer in a new window
+:below new                              open a new, empty buffer in a new window below
+:new <file>                             open file in a new window above
+:on                                     close all windows except active one
+:r                                      read in file
+:view                                   open file READONLY
+:%d                                     delete all lines
+
+:ls                                     list all buffers
+:bn                                     hop to next buffer
+:bp                                     hop to previous buffer
+:b3                                     go to buffer 3
+:bd                                     delete buffer (close buffer and window)
+:ball                                   load all buffers
+bufdo g/function/d                      delete lines containing "function" in all buffers
+
+:tabnew <file>                          open file in a new tab
+:tabn                                   hop to next tab
+:tabp                                   hop to previous tab
+:tabfirst                               hop to first tab
+:tablast                                hop to last tab
+:tabclose                               closetab
+:tabonly                                turn all tabs to buffers except current
+:tab split                              move window in its own tab
+:tabmove #                              move tab to position # (0-indexed)
+#gt                                     go to tab #
+gt                                      go to next tab
+
+:retab                                  convert tabs to spaces
+set tabstop=4                           tabs visually appear as 4 spaces
+set shiftwidth=4                        indentation uses 4 spaces
+set softtabstop=4                       tab key inserts 4 spaces
+set expandtab                           convert tabs to spaces
+set smarttab                            use shiftwidth for indentation at line start
+
+wa                                      write all changes to disk
+
+ml                                      set bookmark using letter 'l'
+'l                                      go to beginning of bookmark line
+`l                                      go to exact bookmark l
+:marks                                  show all bookmarks
+:delmarks l                             delete bookmark l
+
+[{                                     jump to opening curly braces
+]}                                     jump to closing curly braces
+[(                                     same for parenthesis
+])
+
+%                                       jump to opposite [ { ( <
+
+zz                                      center screen on cursor
+zt                                      align top of screen with cursor
+zb                                      align bottom of screen with cursor
+
+qa                                      record macro a
+q                                       stop recording
+@a                                      play macro
+10@a                                    play macro 10x
+
+"ayy                                    store line-yank in register a
+"ap                                     paste register a
+"%p                                     print current file name
+"/                                      last search pattern register
+"_                                      black hole register
+"0                                      last yank register
+"+                                      system clipboard register
+:reg                                    view all registers
+
+da"                                     delete surrounding quotes and content
+di"                                     delete word inside quotes
+ca" / ci"                               change instead of delete
+vab                                     mark block within ()
+Vi{                                     mark all lines in a curly braces block
+cc                                      change (replace) entire line
+d/.*SEARCHTERM                          delete from cursor to SEARCHTERM (not including)
+<ctrl-xl>                               autocomplete line based on existing code
+<ctrl-n>                                autocomplete word
+<ctrl-n>e                               exit autocomplete menu
+
+==                                      auto-indent
+~                                       switch case
+
+za                                      toggle fold under cursor
+zo                                      open fold under cursor
+zc                                      close fold under cursor
+zd                                      delete fold under cursor
+zM                                      close all folds
+zR                                      open all folds
+zj                                      move to next fold
+zk                                      move to previous fold
+zfat                                    zf=fold at=around Tag (set foldmethod=manual)
+
+:term                                   open a terminal window
+<ctrl-w>N                               enter normal mode in terminal window
+A                                       return to terminal mode
+<ctrl-w>:                               enter command mode in terminal
+<ctrl-w>q                               put terminal window into background
+
+:g/var/d                                g selects regex pattern + command (d=delete)
+:vim[grep] /^top/gjf **/*               search for 'top' at beginning of line in repo
+                                        g=global, j=don't jump, f=nogegex
+                                        then use 'copen' or 'cw' to chose from results
+:set gp=git\ grep\ -n                   use ':grep something' to git grep smth in repo (:cw)
+
+q:                                      browse commands history, enter to execute
+
+:set colorcolumn=80                     color column 80 as EOL mark
+:syntax off                             get rid of all color highlighting
+:let mapleader = "\\"                   set the <leader> key to \
+
+:ha                                     print buffer
+
+In command mode:
+<ctrl-rw>                               insert text under cursor
+<ctrl -r>"                              insert content of " register (yank)
+
+:args                                   list files in args (the files initially opened together)
+:args srf/*.js                          add all javascript files in the src folder to args
+:argdo %s/function/func/g               substitute function with func in all args files
+
+
+start editing files at specific line number (e.g. 1337):
+vim +1337 annakarenina.txt
+
+edit remote files:
+------------------
+vim scp://thomasgrusz@controller/~/test.txt
+
+
+set variables:
+--------------
+let g:var_name value	"global variable
+let b:var_name value	"buffer variable
+
+
+General Info about Vim
+----------------------
+" Startup sequence for vim starts here (set in runtimepath): /etc/vim/vimrc
+
+" In /etc/vim/vimrc the following files are sourced with VIMRUNTUME=/usr/share/vim/vim91/ :
+" $VIMRUNTIME/debian.vim
+" $VIMRUNTIME/defaults.vim	(only loaded if no ~/.vimrc)
+" ~/.vimrc
+" ~/.vim/pack/myplugins/start/*
+" $VIMRUNTIME/plugin/*
+
+" ----------------- settings -----------------
+
+" Enable Vim-specific features, disabling strict vi compatibility
+" (/usr/share/vim/debian.vim)
+" set nocompatible
+
+" More powerful backspacing
+" (/usr/share/vim/debian.vim)
+" set backspace=indent,eol,start
+
+" Keep 50 lines of command line history
+" (/usr/share/vim/debian.vim)
+" set history=50
+
+" Show the cursor position all the time
+" (/usr/share/vim/debian.vim)
+" set ruler
+
+" modelines have historically been a source of security/resource
+" vulnerabilities - disable by default, even when 'nocompatible' is set
+" (/usr/share/vim/debian.vim)
+" set nomodeline
+
+" Suffixes that get lower priority when doing tab completion for filenames.
+" These are files we are not likely to want to edit or read.
+" (/usr/share/vim/debian.vim)
+" set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+" Vim5 and later versions support syntax highlighting. Uncommenting the
+" three lines below enables syntax highlighting by default.
+" (/etc/vim/vimrc)
+" if has("syntax")
+"   syntax on
+" endif
+
+" The 'syntax on' setting in /etc/vim/vimrc (above) sources multiple scripts:
+" /usr/shar/vim/vim91/syntax/syntax.vim
+" usr/share/vim/vim91/syntax/synload.vim
+" usr/share/vim/vim91/syntax/syncolor.vim
+" usr/share/vim/vim91/colors/lists/default.vim
+" /usr/share/vim/vim91/filetype.vim
+" /usr/share/vim/vim91/scripts.vim
+" /usr/share/vim/vim91/autoload/dist/script.vim
+
+" Enable filetype detection
+" (/usr/share/vim/vim91/syntax/syntax.vim)
+" filetype on
+
+" Load indentation rules and plugins according to the detected filetype
+filetype plugin indent on
+
