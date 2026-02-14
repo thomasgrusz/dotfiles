@@ -249,4 +249,3 @@ General Info about Vim
 
 " Load indentation rules and plugins according to the detected filetype
 filetype plugin indent on
-
