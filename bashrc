@@ -180,6 +180,16 @@ if [[ -f "HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi
 
+# Add ssh keys to ssh-agent
+# Non standard names are not loaded automatically
+if [[ -f "$HOME/.ssh/id_ed25519_github" ]]; then
+    ssh-add -q "$HOME/.ssh/id_ed25519_github"
+fi
+
+if [[ -f "$HOME/.ssh/id_ed25519_gitlab" ]]; then
+    ssh-add -q "$HOME/.ssh/id_ed25519_gitlab"
+fi
+
 # ---
 
 # ANSI Color Codes for Terminal (FG: Foreground, BG: Background)
