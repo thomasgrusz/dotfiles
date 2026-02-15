@@ -176,7 +176,7 @@ if [[ -d "$HOME/.local/bin" ]]; then
 fi
 
 # Source ~/.cargo/env if exists (rust)
-if [[ -f "HOME/.cargo/env" ]]; then
+if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi
 
