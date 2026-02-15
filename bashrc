@@ -180,6 +180,11 @@ if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi
 
+# Start SSH agent if not running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval "$(ssh-agent -s)"
+fi
+
 # Add ssh keys to ssh-agent
 # Non standard names are not loaded automatically
 if [[ -f "$HOME/.ssh/id_ed25519_github" ]]; then
