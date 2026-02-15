@@ -195,6 +195,10 @@ if [[ -f "$HOME/.ssh/id_ed25519_gitlab" ]]; then
     ssh-add -q "$HOME/.ssh/id_ed25519_gitlab"
 fi
 
+if [[ -f "$HOME/.bash_completion/alacritty" ]]; then
+    . "$HOME/.bash_completion/alacritty"
+fi
+
 # ---
 
 # ANSI Color Codes for Terminal (FG: Foreground, BG: Background)
