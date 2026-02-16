@@ -1,0 +1,44 @@
+helix
+=====
+
+space - ?               command picker
+						% bindings -> e.g. gj
+
+space - f               file picker
+						ctrl+v -> open fil in vertical split window
+
+space - s               symbol picker
+space - S               symbol picker for entire project
+space - d               diagnostic picker
+ctrl+c                  toggle comment
+[                       go to last <pick option>
+]                       go to next <pick option>
+
+[ - space               insert space above
+] - space               insert space below
+
+miw                     match word
+maw                     match around word, e.g. word in quotes
+
+space r                 rename symbol
+
+ctrl+o                  jump forward in jump-list
+ctrl+i                  jump backward in jump-list
+ctrl+s                  save current location to jump list
+ctrl+j                  open jumplist picker
+						searchable by colums -> %contents <search term>
+[-g                     got previous git change
+]-g                     go to next git change
+space - g               git changed file picker
+alt+o                   move up the file syntax tree
+alt+i                   move down the file syntax tree
+]-f                     got to next function
+
+space-y                 copy system clipboard
+space-p                 paste system
+space-k                 show docs under cursor
+
+shift-c                 multiple cursors
+
+:toggle auto-format     runtime toggle of features like auto-format
+:reset-diff-change      remove change compared to last git commit
