@@ -52,19 +52,19 @@ right = [
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
-C-s = ":write"                                         # Ctrl and 's' to write
-y = ":clipboard-yank"
-d = ["yank_to_clipboard", "delete_selection_noyank"]
-p = ":clipboard-paste-after"
-P = ":clipboard-paste-before"
-# Pop up window with the current line's git blame information.
 space.B = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
+#C-s = ":write"                                         # Ctrl and 's' to write
+#y = ":clipboard-yank"
+#d = ["yank_to_clipboard", "delete_selection_noyank"]
+#p = ":clipboard-paste-after"
+#P = ":clipboard-paste-before"
+# Pop up window with the current line's git blame information.
 
 [keys.select]
-y = ":clipboard-yank"
-d = ["yank_to_clipboard", "delete_selection_noyank"]
-p = ":clipboard-paste-after"
-P = ":clipboard-paste-before"
+#y = ":clipboard-yank"
+#d = ["yank_to_clipboard", "delete_selection_noyank"]
+#p = ":clipboard-paste-after"
+#P = ":clipboard-paste-before"
 
 [keys.insert.j]
 k = "normal_mode" # Maps `jk` to exit insert mode
