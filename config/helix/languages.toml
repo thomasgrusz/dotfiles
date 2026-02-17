@@ -5,6 +5,7 @@ formatter = { command = "taplo", args = ["fmt", "-"] }
 auto-format = true
 
 
+# markdown
 [[language]]
 name = "markdown"
 formatter = { command = "prettier", args = ["--parser", "markdown"] }
