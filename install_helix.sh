@@ -69,7 +69,7 @@ echo -e "Installing dependencies from github to ~${BIN_DIR#"$HOME"} ...: "
 install_binary "taplo" "tamasfe/taplo" "taplo-linux-x86_64\.gz" "gzip -d"
 install_binary "marksman" "artempyanykh/marksman" "marksman-linux-x64" "cat"
 install_binary "ty" "astral-sh/ty" "ty-x86_64-unknown-linux-gnu\.tar\.gz" "tar xzf - -O"
-install_binary "shellcheck" "koalaman/shellcheck" "linux\.x86_64\.tar\.xz" "tar --strip-components=1 -xJf -"
+install_binary "shellcheck" "koalaman/shellcheck" "linux\.x86_64\.tar\.xz" "tar -xJOf - --strip-components=1 --wildcards */shellcheck"
 install_binary "shfmt" "mvdan/sh" "linux_amd64" "cat"
 install_binary "black" "psf/black" "black_linux" "cat"
 
