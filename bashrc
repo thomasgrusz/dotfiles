@@ -144,12 +144,9 @@ fi
 #eval "$(pyenv init - bash)"
 #eval "$(pyenv virtualenv-init -)"
 
-## Install neovim pre-built
-# curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-# sudo rm -rf /opt/nvim-linux-x86_64
-# sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-if [[ -d "/opt/nvim-linux-x86_64/bin" ]]; then
-    [[ ":$PATH:" =~ :/opt/nvim-linux-x86_64/bin: ]] || export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+## Ensure neovim is in PATH if installed
+if [[ -d "$HOME/.local/bin/nvim-linux-x86_64/bin" ]]; then
+    [[ ":$PATH:" =~ :$HOME/.local/bin/nvim-linux-x86_64/bin: ]] || export PATH="$PATH:$HOME/.local/bin/nvim-linux-x86_64/bin"
 fi
 
 ## Install nvm (Node Version Manager) and node
