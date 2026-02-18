@@ -63,6 +63,10 @@ cd && bash ~/dotfiles/install_helix.sh
 
 ### Install neovim and NvChad framework, install plugins (inside neovim), regularly update:
 
+```
+cd && bash ~/dotfiles/install_neovim_IDE.sh
+```
+
 `:MasonInstallAll`
 
 `:TSInstallAll`
