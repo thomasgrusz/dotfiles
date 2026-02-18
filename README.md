@@ -49,17 +49,25 @@ Check installation with:
 nvm -v && node -v
 ```
 
-### Install Vim plugins (inside Vim), regularly update:
+### Install vim plugins (inside Vim), regularly update:
 
 `:PlugInstall`
 
 `:PlugUpdate`
 
-### Install Helix text editor and dependencies:
+### Install helix text editor and dependencies:
 
 ```
 cd && bash ~/dotfiles/install_helix.sh
 ```
+
+### Install neovim and NvChad framework, install plugins (inside neovim), regularly update:
+
+`:MasonInstallAll`
+
+`:TSInstallAll`
+
+`:Lazy sync`
 
 ---
 
