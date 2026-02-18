@@ -8,13 +8,8 @@ set -euo pipefail
 
 GREEN='\033[32m'
 RED='\033[31m'
-#FAT_GREEN="\033[1;92m"
 FAT_PURPLE="\033[1;95m"
 RESET="\033[0m"
-
-#YELLOW='\033[33m'
-#BLUE='\033[94m'
-#RESET='\033[0m'
 
 BIN_DIR="$HOME/.local/bin"
 CONFIG_DIR="$HOME/.config/nvim"
@@ -76,3 +71,6 @@ rm -rf "${CONFIG_DIR}/.git"
 echo -e "\nRun ${FAT_PURPLE}\`nvim'${RESET} to start neovim and run the following commands inside neovim:"
 echo -e "${FAT_PURPLE}:MasonInstallAll${RESET}"
 echo -e "${FAT_PURPLE}:TSInstallAll${RESET}"
+
+echo -e "For regular updates run ${FAT_PURPLE}:Lazy sync${RESET}"
+echo -e "Learn about customization of ui & base46 ${FAT_PURPLE}:h nvui${RESET}"
