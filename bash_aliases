@@ -11,3 +11,8 @@ alias mkv2mp4='ffmpeg -i input.mkv -c:v copy -c:a copy -c:s mov_text -map 0 outp
 alias makevenv='python3 -m venv venv && source venv/bin/activate && pip install --upgrade pip && pip install flake8 yapf'
 alias makejs='npm init -y && npm install eslint prettier --save-dev && echo -e "{\n\"include\": [\"**/*.js\"],\n\"exclude\": [\"node_modules\"]\n}" > jsconfig.json && npm init @eslint/config@latest'
 alias sv='source venv/bin/activate'
+
+alias rmneovim='rm -rf ~/.config/nvim/ ~/.local/bin/nvim-linux-x86_64/ ~/.local/state/nvim/ ~/.local/share/nvim/ ~/.cache/nvim/'
+alias lsneovim='ls -lh ~/.config/nvim/ ~/.local/bin/nvim-linux-x86_64/ ~/.local/state/nvim/ ~/.local/share/nvim/ ~/.cache/nvim/'
+alias installneovim='curl --proto "=https" --tlsv1.2 -#fL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz" | tar xzf - -C "${HOME}/.local/bin"'
+alias installkickstart='git clone https://github.com/thomasgrusz/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim'
