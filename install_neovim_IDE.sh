@@ -14,7 +14,7 @@ RESET="\033[0m"
 BIN_DIR="$HOME/.local/bin"
 CONFIG_DIR="$HOME/.config/nvim"
 NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
-KICKSTART_URL="https://github.com/thomasgrusz/kickstart.nvim"
+KICKSTART_URL="git@github.com:thomasgrusz/kickstart.nvim.git"
 #NVCHAD_URL="https://github.com/NvChad/starter"
 
 NERD_FONT_NAME="SourceCodePro"
@@ -37,7 +37,7 @@ echo -e "${GREEN}✓ neovim $(nvim --version | sed -n 1p | cut -d ' ' -f 2) inst
 
 # Install kickstart - my nvim config file `init.lua'
 echo -e "\nInstalling kickstart..."
-git clone -q https://github.com/thomasgrusz/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+git clone -q "$KICKSTART_URL" "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim 
 echo -e "${GREEN}✓ kickstart installed${RESET}"
 
 # Install NERD font: SourceCodePro
