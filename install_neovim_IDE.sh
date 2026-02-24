@@ -22,6 +22,15 @@ NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/
 NERD_FONT_DEST="$HOME/.local/share/fonts/${NERD_FONT_NAME}NerdFont"
 
 NODE_PACKAGE="tree-sitter-cli"
+## NOTE for MacBook Pro (mbp)
+# In case of tree-sitter errors complaining about `gcc' being too old
+# download older an version of tree-sitter directly into ~/.local/bin/
+# cd ~/.local/bin/
+# wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.24.7/tree-sitter-linux-x64.gz -O tree-sitter.gz
+# gzip -d tree-sitter.gz
+# chmod +x tree-sitter
+
+
 APT_PACKAGES=("ripgrep" "gcc" "make" "fd-find" "xclip" "python3*-full")
 
 # Remove old neovim folders
