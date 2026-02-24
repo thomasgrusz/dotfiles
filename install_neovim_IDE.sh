@@ -22,7 +22,7 @@ NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/
 NERD_FONT_DEST="$HOME/.local/share/fonts/${NERD_FONT_NAME}NerdFont"
 
 NODE_PACKAGE="tree-sitter-cli"
-APT_PACKAGES=("ripgrep" "gcc" "make" "fd-find" "xclip")
+APT_PACKAGES=("ripgrep" "gcc" "make" "fd-find" "xclip" "python3*-full")
 
 # Remove old neovim folders
 rm -rf "$CONFIG_DIR"
