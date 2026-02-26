@@ -21,7 +21,8 @@ NERD_FONT_NAME="SourceCodePro"
 NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${NERD_FONT_NAME}.zip"
 NERD_FONT_DEST="$HOME/.local/share/fonts/${NERD_FONT_NAME}NerdFont"
 
-NODE_PACKAGE="tree-sitter-cli"
+#NODE_PACKAGE="tree-sitter-cli"
+
 ## NOTE for MacBook Pro (mbp)
 # In case of tree-sitter errors complaining about `gcc' being too old
 # download older an version of tree-sitter directly into ~/.local/bin/
@@ -59,12 +60,12 @@ if [[ -d "${NERD_FONT_DEST}" ]]; then
     echo -e "${GREEN}✓ ${NERD_FONT_NAME} installed${RESET}"
 fi
 
-# Install/update node package
-echo -e "\nInstalling/updating \`${NODE_PACKAGE}'..."
-npm -g install --quiet "$NODE_PACKAGE"
-if grep -q "$NODE_PACKAGE" <(npm -g list); then
-    echo -e "${GREEN}✓ ${NODE_PACKAGE} installed/updated${RESET}"
-fi
+## Install/update node package
+#echo -e "\nInstalling/updating \`${NODE_PACKAGE}'..."
+#npm -g install --quiet "$NODE_PACKAGE"
+#if grep -q "$NODE_PACKAGE" <(npm -g list); then
+#    echo -e "${GREEN}✓ ${NODE_PACKAGE} installed/updated${RESET}"
+#fi
 
 # Check APT packages
 echo -e "\nChecking APT packages..."
