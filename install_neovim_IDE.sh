@@ -14,8 +14,8 @@ RESET="\033[0m"
 BIN_DIR="$HOME/.local/bin"
 CONFIG_DIR="$HOME/.config/nvim"
 NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
-KICKSTART_URL="git@github.com:thomasgrusz/kickstart.nvim.git"
-#NVCHAD_URL="https://github.com/NvChad/starter"
+#KICKSTART_URL="git@github.com:thomasgrusz/kickstart.nvim.git"
+NVCHAD_URL="https://github.com/NvChad/starter"
 
 NERD_FONT_NAME="SourceCodePro"
 NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${NERD_FONT_NAME}.zip"
@@ -44,10 +44,10 @@ echo "Installing neovim..."
 curl --proto '=https' --tlsv1.2 -#fL "$NVIM_URL" | tar -xzf - -C "$BIN_DIR"
 echo -e "${GREEN}✓ neovim $(nvim --version | sed -n 1p | cut -d ' ' -f 2) installed${RESET}"
 
-# Install kickstart - my nvim config file `init.lua'
-echo -e "\nInstalling kickstart..."
-git clone -q "$KICKSTART_URL" "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim 
-echo -e "${GREEN}✓ kickstart installed${RESET}"
+# # Install kickstart - my nvim config file `init.lua'
+# echo -e "\nInstalling kickstart..."
+# git clone -q "$KICKSTART_URL" "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim 
+# echo -e "${GREEN}✓ kickstart installed${RESET}"
 
 # Install NERD font: SourceCodePro
 echo -e "\nInstalling Nerd Font ${NERD_FONT_NAME}..."
@@ -76,16 +76,16 @@ for package in "${APT_PACKAGES[@]}"; do
     fi
 done
 
-## Install NvChad framework
-#echo -e "\nInstalling NvChad framework for neovim"
-#git clone -q "${NVCHAD_URL}" "${CONFIG_DIR}"
-#if [[ -d "${CONFIG_DIR}" ]]; then
-#    echo -e "${GREEN}✓ NvChad framework installed${RESET}"
-#fi
-#rm -rf "${CONFIG_DIR}/.git"
-#echo -e "\nRun ${FAT_PURPLE}\`nvim'${RESET} to start neovim and run the following commands inside neovim:"
-#echo -e "${FAT_PURPLE}:MasonInstallAll${RESET}"
-#echo -e "${FAT_PURPLE}:TSInstallAll${RESET}"
-#
-#echo -e "For regular updates run ${FAT_PURPLE}:Lazy sync${RESET}"
-#echo -e "Learn about customization of ui & base46 ${FAT_PURPLE}:h nvui${RESET}"
+# Install NvChad framework
+echo -e "\nInstalling NvChad framework for neovim"
+git clone -q "${NVCHAD_URL}" "${CONFIG_DIR}"
+if [[ -d "${CONFIG_DIR}" ]]; then
+   echo -e "${GREEN}✓ NvChad framework installed${RESET}"
+fi
+rm -rf "${CONFIG_DIR}/.git"
+echo -e "\nRun ${FAT_PURPLE}\`nvim'${RESET} to start neovim and run the following commands inside neovim:"
+echo -e "${FAT_PURPLE}:MasonInstallAll${RESET}"
+echo -e "${FAT_PURPLE}:TSInstallAll${RESET}"
+
+echo -e "For regular updates run ${FAT_PURPLE}:Lazy sync${RESET}"
+echo -e "Learn about customization of ui & base46 ${FAT_PURPLE}:h nvui${RESET}"
