@@ -158,6 +158,10 @@ export NVM_DIR="$HOME/.nvm"
 # shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
+# Install go
+# wget https://go.dev/dl/go1.26.0.linux-amd64.tar.gz
+# sudo tar -C /usr/local/ -xzf go1.26.0.linux-amd64.tar.gz
+
 # Add `go' to path, if it exists
 if [[ -d "/usr/local/go/bin" ]]; then
     [[ ":$PATH:" =~ :/usr/local/go/bin: ]] || export PATH="$PATH:/usr/local/go/bin"
