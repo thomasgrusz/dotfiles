@@ -17,7 +17,8 @@ NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x
 #KICKSTART_URL="git@github.com:thomasgrusz/kickstart.nvim.git"
 NVCHAD_URL="https://github.com/NvChad/starter"
 
-NERD_FONT_NAME="SourceCodePro"
+NERD_FONT_NAME="JetBrainsMono"
+# NERD_FONT_NAME="SourceCodePro"
 NERD_FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${NERD_FONT_NAME}.zip"
 NERD_FONT_DEST="$HOME/.local/share/fonts/${NERD_FONT_NAME}NerdFont"
 
