@@ -31,7 +31,7 @@ NODE_PACKAGE="tree-sitter-cli"
 # chmod +x tree-sitter
 
 
-APT_PACKAGES=("ripgrep" "gcc" "make" "fd-find" "xclip" "python3*-full")
+APT_PACKAGES=("ripgrep" "clang" "gcc" "make" "fd-find" "xclip" "python3*-full")
 
 # Remove old neovim folders
 rm -rf "$CONFIG_DIR"
