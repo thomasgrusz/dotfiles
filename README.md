@@ -16,7 +16,7 @@ cd && git clone git@github.com:thomasgrusz/dotfiles.git
 bash ~/dotfiles/install_dotfiles.sh
 ```
 
-The following dotfiles will be replace with symlinks to `~/dotfiles`. Your original dotfiles will be backed up in a new folder inside home (`~`).
+The following dotfiles will be replace with symlinks to `~/dotfiles`. Your original dotfiles will be backed up in a new folder inside home (`~/dotfiles_backup_DATE`).
 
 | dotfiles                           |
 | ---------------------------------- |
@@ -27,8 +27,10 @@ The following dotfiles will be replace with symlinks to `~/dotfiles`. Your origi
 | ~/.git-completion.bash             |
 | ~/.gitconfig                       |
 | ~/.git-prompt.sh                   |
-| ~/.vimrc                           |
+| ~/.myscripts/                      |
+| ~/.tmux.conf                       |
 | ~/.vim/                            |
+| ~/.vimrc                           |
 | ~/.config/alacritty/alacritty.toml |
 | ~/.config/helix/config.toml        |
 | ~/.config/helix/languages.toml     |
@@ -75,9 +77,9 @@ cd && bash ~/dotfiles/install_neovim_IDE.sh
 
 ---
 
-## New Python or JavaScript projects
+## New Python or JavaScript projects with **vim**
 
-**Helix** does not requiree any further python or javascript dev packages. Just create a project folder `cd `into it and start coding.
+**Neovim** and **helix** do not requiree any further python or javascript dev packages. Just create a project folder `cd `into it and start coding.
 
 **Vim** on the other hand needs dev packages that can be installed via an alias (defined in `~/.bash_aliases`):
 
@@ -98,3 +100,15 @@ makevenv
 cd && mkdir myJSproject && cd myJSproject
 makejs
 ```
+
+---
+
+## Cheatsheets
+
+Inside the `dotfiles` folder are cheatsheets for
+
+- archlinux base install
+- git
+- helix
+- linux sys admin
+- vim
