@@ -38,7 +38,7 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -52,41 +52,41 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u@\h${RESET}:${BLUE}\w\$(__git_ps1 ' (%s)')${RESET}\$ "
+  PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u@\h${RESET}:${BLUE}\w\$(__git_ps1 ' (%s)')${RESET}\$ "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm* | rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
 *) ;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  #alias dir='dir --color=auto'
+  #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -103,7 +103,7 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f "$HOME"/.bash_aliases ]; then
-    . "$HOME"/.bash_aliases
+  . "$HOME"/.bash_aliases
 fi
 
 # Default parameter to send to the "less" command
@@ -114,11 +114,11 @@ export LESS="-R -i"
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
 # Add sbin directories to PATH.  This is useful on systems that have sudo
@@ -127,12 +127,12 @@ fi
 
 # Add my scripts folder in ~/.myscripts to PATH, if not there
 if [[ -d "$HOME/.myscripts" ]]; then
-    [[ ":$PATH:" =~ :$HOME/.myscripts: ]] || export PATH="$PATH:$HOME/.myscripts"
+  [[ ":$PATH:" =~ :$HOME/.myscripts: ]] || export PATH="$PATH:$HOME/.myscripts"
 fi
 
 # Configure git
 if [[ -f "$HOME/.bash_git_setup" ]]; then
-    source "$HOME/.bash_git_setup"
+  source "$HOME/.bash_git_setup"
 fi
 
 ## Install Pyenv - Python version control
@@ -146,7 +146,7 @@ eval "$(pyenv virtualenv-init -)"
 
 ## Ensure neovim is in PATH if installed
 if [[ -d "$HOME/.local/bin/nvim-linux-x86_64/bin" ]]; then
-    [[ ":$PATH:" =~ :$HOME/.local/bin/nvim-linux-x86_64/bin: ]] || export PATH="$PATH:$HOME/.local/bin/nvim-linux-x86_64/bin"
+  [[ ":$PATH:" =~ :$HOME/.local/bin/nvim-linux-x86_64/bin: ]] || export PATH="$PATH:$HOME/.local/bin/nvim-linux-x86_64/bin"
 fi
 
 ## Install nvm (Node Version Manager) and node
@@ -164,40 +164,36 @@ export NVM_DIR="$HOME/.nvm"
 
 # Add `go' to path, if it exists
 if [[ -d "/usr/local/go/bin" ]]; then
-    [[ ":$PATH:" =~ :/usr/local/go/bin: ]] || export PATH="$PATH:/usr/local/go/bin"
+  [[ ":$PATH:" =~ :/usr/local/go/bin: ]] || export PATH="$PATH:/usr/local/go/bin"
 fi
 
 if [[ -d "$HOME/go/bin" ]]; then
-    [[ ":$PATH:" =~ :$HOME/go/bin: ]] || export PATH="$PATH:$HOME/go/bin"
+  [[ ":$PATH:" =~ :$HOME/go/bin: ]] || export PATH="$PATH:$HOME/go/bin"
 fi
 
 # Add ~/.local/bin to PATH
 if [[ -d "$HOME/.local/bin" ]]; then
-    [[ ":$PATH:" =~ :$HOME/.local/bin: ]] || export PATH="$PATH:$HOME/.local/bin"
+  [[ ":$PATH:" =~ :$HOME/.local/bin: ]] || export PATH="$PATH:$HOME/.local/bin"
 fi
 
 # Source ~/.cargo/env if exists (rust)
 if [[ -f "$HOME/.cargo/env" ]]; then
-    . "$HOME/.cargo/env"
+  . "$HOME/.cargo/env"
 fi
 
 # Start SSH agent if not running
 if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s)"
+  eval "$(ssh-agent -s)"
 fi
 
 # Add ssh keys to ssh-agent
 # Non standard names are not loaded automatically
 if [[ -f "$HOME/.ssh/id_ed25519_github" ]]; then
-    ssh-add -q "$HOME/.ssh/id_ed25519_github"
+  ssh-add -q "$HOME/.ssh/id_ed25519_github"
 fi
 
 if [[ -f "$HOME/.ssh/id_ed25519_gitlab" ]]; then
-    ssh-add -q "$HOME/.ssh/id_ed25519_gitlab"
-fi
-
-if [[ -f "$HOME/.bash_completion/alacritty" ]]; then
-    . "$HOME/.bash_completion/alacritty"
+  ssh-add -q "$HOME/.ssh/id_ed25519_gitlab"
 fi
 
 # ---
