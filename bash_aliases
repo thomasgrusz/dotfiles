@@ -18,3 +18,4 @@ alias installneovim='curl --proto "=https" --tlsv1.2 -#fL "https://github.com/ne
 alias installkickstart='git clone git@github.com:thomasgrusz/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim'
 alias installnvchad='git clone git@github.com:thomasgrusz/nvchadstarter "${HOME}"/.config/nvim'
 alias poweroffusbdevice='udisksctl power-off -b'
+alias cba='xclip -sel clipboard'
