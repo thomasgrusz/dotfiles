@@ -1,0 +1,44 @@
+podman
+======
+
+sudo apt install podman
+podman version
+
+configs
+-------
+/etc/containers/registries.conf
+~/.local/share/containers/storage/volumes/
+
+Add this line to the config file to include image registries:
+unqualified-search-registries = ["docker.io", "quay.io", "ghcr.io", "registry.access.redhat.com"]
+
+commands
+--------
+podman ps                                                           show running containers
+podman ps -a                                                        show all containers
+podman start <container-id/name>                                    start a container
+podman restart <container>                                          restart a container
+podman restart --all                                                restart all containers
+podman stop <container>                                             stop a container
+podman rm <container>                                               destroy container
+podman container rm <container>                                     destroy container
+podman inspect <container>                                          inspect container definition json
+podman inspect nginx --format {{json .Mounts}} | jq .               pretty print volume mounts in container
+
+podman run -it --rm rockylinux:9                                    create and run an interactive rockylinux 9 container, destroy on exit
+podman run -it --rm rockylinux/rockylinux:9                         same
+podman run -d --name nginx -p 8080:80 docker.io/nginx               background container w/ nginx on 80, host 8080
+podman exec -it <container> sh                                      start a shell inside a background container
+podman top <container> huser hpid pid user args                     overview on processes in container
+podman run -d -p 8080:80 nginx -v ./app:/usr/share/nginx/html:Z     mapped host folder in cwd to container folder, Z = set SEL context 
+podman volume create app                                            create volume named app with _data subfolder in ~/.local/share/containers/storage/volumes/
+podman volume ls                                                    list volumes
+podman run -d -p 8080:80 nginx -v app:/usr/share/nginx/html:Z       use the volume app (CAVE there is no ./ in front of app!) 
+
+podman images                                                       list all local images
+podman image list                                                   same
+podman search rockylinux:9                                          search for an image named rockylinux version 9
+podman pull rockylinux:9                                            download images
+podman rm <image>                                                   delete image
+
+
