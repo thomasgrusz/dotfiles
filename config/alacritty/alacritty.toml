@@ -50,7 +50,7 @@ normal.family = "JetBrains Mono Nerd Font"
 # normal.family = "Hurmit Nerd Font"
 # normal.family = "Agave Nerd Font"
 # normal.style = "Regular"
-size = 16
+size = 14
 
 [shell]
 program = "/bin/bash"
