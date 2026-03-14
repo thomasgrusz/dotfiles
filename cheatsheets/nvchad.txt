@@ -1,0 +1,260 @@
+NvChad (neovim distro)
+======================
+
+neovim stuff
+------------
+set runtimepath?                            show runtimepath
+echo stdpath('config')                      show path to config folder
+
+echo $MYVIMRC                               show path to neovim init file 
+lua print(vim.fn.expand("$MYVIMRC"))        same
+lua print(vim.env.MYVIMRC)                  same
+
+colorscheme tokyodark                       set colorscheme to tokyodark
+lua vim.cmd.colorscheme("tokyodark")        same
+lua vim.cmd.colorscheme "tokyodark"         same
+lua vim.cmd("colorscheme")                  show current colorscheme
+
+lua vim.print(mytable) = lua =mytable (shorcut)
+
+nvchad stuff
+------------
+folders:     ~/.config/nvim
+             ~/.local/bin/nvim-linux-x86_64
+             ~/.local/share/nvim
+             ~/.local/state/nvim
+             ~/.cache/nvim
+
+configs:
+~/.config/nvim/
+            |__init.lua
+            |__lua/
+                  |__autocomds.lua
+                  |__chadrc.lua
+                  |__mappings.lua
+                  |__options.lua
+                  |__configs/
+                  |      |__conform.lua
+                  |      |__lazy.lua
+                  |      |__lspconfig.lua
+                  |__plugins
+                         |__init.lua
+
+~/.config/nvim/init.lua
+
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+vim.g.mapleader = " "
+
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+
+if not vim.uv.fs_stat(lazypath) then
+  local repo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+local lazy_config = require "configs.lazy"
+
+-- load plugins
+require("lazy").setup({
+  {
+    "NvChad/NvChad",
+    lazy = false,
+    branch = "v2.5",
+    import = "nvchad.plugins",
+  },
+
+  { import = "plugins" },
+}, lazy_config)
+
+-- load theme
+dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "statusline")
+
+require "options"
+require "autocmds"
+
+vim.schedule(function()
+  require "mappings"
+end)
+
+-- configure diagnostics
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = "rounded", source = "if_many" },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+  virtual_text = true, -- Text shows up at the end of the line
+  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+  jump = { float = true }, -- Auto open the float, after jumping with `[d` and `]d`
+}
+
+
+Explanation to init.lua file above:
+
+Here’s a **line-by-line, exhaustive explanation** of your `init.lua` (the entry point of an NvChad v2.5 setup). I’ll quote each logical block, then explain exactly what it does, why it’s there, and how it fits into the bigger picture of NvChad + lazy.nvim.
+
+### 1. Base46 cache path
+```lua
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
+```
+- `vim.g.*` creates a **global** variable that can be read from anywhere in your config (including plugin files).
+- `vim.fn.stdpath "data"` returns Neovim’s data directory:
+  - Linux/macOS: `~/.local/share/nvim`
+  - Windows: `%LOCALAPPDATA%\nvim-data`
+- Resulting path: `~/.local/share/nvim/base46/`
+- NvChad uses this folder to **cache** compiled theme files (colorschemes, highlights, statusline, etc.). Caching makes startup extremely fast because it avoids regenerating the theme on every launch.
+
+### 2. Leader key
+```lua
+vim.g.mapleader = " "
+```
+- Sets the `<leader>` key to **Space**.
+- This is the standard NvChad choice (and most modern configs).
+- Every mapping that starts with `<leader>` (e.g. `<leader>ff` for find files) will now use Space.
+- Must be set **before** any mappings are loaded (which is why it’s at the very top).
+
+### 3. Lazy.nvim bootstrap (the plugin manager)
+```lua
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+
+if not vim.uv.fs_stat(lazypath) then
+  local repo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+end
+
+vim.opt.rtp:prepend(lazypath)
+```
+- `lazypath` = where lazy.nvim should live (`~/.local/share/nvim/lazy/lazy.nvim`).
+- `vim.uv.fs_stat(lazypath)` checks if the folder already exists (using libuv, the fast async filesystem API).
+- If it doesn’t exist → `vim.fn.system` runs a **git clone**:
+  - `--filter=blob:none` → shallow clone (only downloads what we need → faster & smaller).
+  - `--branch=stable` → pins the stable release (recommended by lazy.nvim).
+- `vim.opt.rtp:prepend(lazypath)` adds lazy.nvim to Neovim’s runtimepath **before** anything else, so `require("lazy")` will work immediately.
+
+This is the classic “bootstrap” pattern so you can install Neovim on a fresh machine and it auto-installs the plugin manager on first run.
+
+### 4. Load lazy config
+```lua
+local lazy_config = require "configs.lazy"
+```
+- Loads `lua/configs/lazy.lua` (or `.luac` if compiled).
+- This file usually contains the `opts` table you pass to `lazy.setup()` (UI settings, install colors, performance tweaks, etc.).
+- NvChad ships a default `configs/lazy.lua`; you can override it.
+
+### 5. Plugin setup with lazy.nvim
+```lua
+-- load plugins
+require("lazy").setup({
+  {
+    "NvChad/NvChad",
+    lazy = false,
+    branch = "v2.5",
+    import = "nvchad.plugins",
+  },
+
+  { import = "plugins" },
+}, lazy_config)
+```
+This is the **heart** of the entire config.
+
+- `require("lazy").setup({ … }, lazy_config)`
+  - First argument = list of plugin specs.
+  - Second argument = options from `configs.lazy`.
+
+Breaking down the two plugin specs:
+
+1. **NvChad core plugin**
+   ```lua
+   {
+     "NvChad/NvChad",
+     lazy = false,           -- load immediately (not lazy-loaded)
+     branch = "v2.5",        -- lock to NvChad v2.5
+     import = "nvchad.plugins",
+   }
+   ```
+   - This “plugin” is actually a meta-entry.
+   - `import = "nvchad.plugins"` tells lazy.nvim to **automatically load** all the plugin definitions that NvChad ships in its own repository (under `lua/nvchad/plugins/`).
+   - This is how you get Telescope, nvim-tree, LSP configs, treesitter, etc. without writing them yourself.
+
+2. **User plugins**
+   ```lua
+   { import = "plugins" }
+   ```
+   - This tells lazy.nvim to load `lua/plugins/init.lua` (or the whole `lua/plugins/` folder if it contains multiple files).
+   - This is **your** place to add custom plugins (e.g. `plugins/lsp.lua`, `plugins/ui.lua`, etc.). NvChad encourages you to put everything here so it doesn’t get overwritten on update.
+
+### 6. Load cached theme files
+```lua
+-- load theme
+dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "statusline")
+```
+- `dofile()` directly executes a Lua file (bypasses `require()` cache).
+- These two files are **pre-compiled** by NvChad’s base46 theming engine during the first `:MasonInstall` or theme change.
+  - `defaults` → all base highlight groups (`Normal`, `Comment`, `CursorLine`, etc.).
+  - `statusline` → the entire statusline highlight groups.
+- Loading them this early ensures the UI looks correct from the very first frame (no flash of unthemed UI).
+
+### 7. Load core user config modules
+```lua
+require "options"
+require "autocmds"
+```
+- `require "options"` → `lua/options.lua` (your `vim.opt` settings: number, relativenumber, tabstop, etc.).
+- `require "autocmds"` → `lua/autocmds.lua` (all `vim.api.nvim_create_autocmd` calls, file-type specific settings, etc.).
+
+These are the two files you edit most often in NvChad.
+
+### 8. Deferred loading of keymaps
+```lua
+vim.schedule(function()
+  require "mappings"
+end)
+```
+- `vim.schedule()` pushes the function to the **next event loop tick**.
+- Why? Many plugins (especially which-key, telescope, etc.) register their own mappings during `Lazy` setup. Loading your custom `mappings.lua` **after** them prevents conflicts and makes sure `<leader>` mappings take precedence.
+- `require "mappings"` loads `lua/mappings.lua` (your custom keybinds).
+
+### 9. Diagnostics configuration (final block)
+```lua
+-- configure diagnostics
+vim.diagnostic.config {
+  update_in_insert = false,
+  severity_sort = true,
+  float = { border = "rounded", source = "if_many" },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+  virtual_text = true,           -- Text shows up at the end of the line
+  virtual_lines = false,         -- Text shows up underneath the line (requires lsp_lines plugin usually)
+  jump = { float = true },       -- Auto open the float when jumping with [d or ]d
+}
+```
+- This is Neovim’s **built-in** diagnostic system (used by LSP, diagnostic signs, etc.).
+- Settings explained:
+  - `update_in_insert = false` → don’t spam you while typing (performance + UX).
+  - `severity_sort = true` → errors appear before warnings in lists.
+  - `float` → hover window style (rounded border, only show source if multiple sources).
+  - `underline` → only underline **errors** (not warnings/hints).
+  - `virtual_text = true` → classic inline text at end of line (e.g. `◉ Error`).
+  - `virtual_lines = false` → disabled (would require the `lsp_lines.nvim` plugin).
+  - `jump = { float = true }` → when you press `[d` or `]d`, automatically open the diagnostic float (very convenient).
+
+---
+
+### Summary of execution order (why it matters)
+
+1. Set cache path & leader  
+2. Bootstrap lazy.nvim (if missing)  
+3. Load lazy config  
+4. `lazy.setup()` → installs NvChad core + your plugins  
+5. Load cached theme (instant UI)  
+6. Load `options` and `autocmds`  
+7. Schedule `mappings` (after plugins)  
+8. Final diagnostic tweaks  
+
+This structure is **extremely optimized** for speed: everything that can be cached or deferred is, and lazy.nvim handles plugin loading intelligently.
+
+You now know exactly what every single line does and why NvChad is structured this way. If you want me to go deeper into any specific file (`options.lua`, `mappings.lua`, `configs/lazy.lua`, etc.), just say the word!
