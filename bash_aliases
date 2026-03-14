@@ -17,8 +17,10 @@ alias lsneovim='ls -lh ~/.config/nvim/ ~/.local/bin/nvim-linux-x86_64/ ~/.local/
 alias installneovim='curl --proto "=https" --tlsv1.2 -#fL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz" | tar xzf - -C "${HOME}/.local/bin"'
 alias installkickstart='git clone git@github.com:thomasgrusz/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim'
 alias installnvchad='git clone git@github.com:thomasgrusz/nvchadstarter "${HOME}"/.config/nvim'
-
+# debian package: udisks2
 alias poweroffusbdevice='udisksctl power-off -b'
 alias cba='xclip -sel clipboard'
 # debian package: libimage-exiftool-perl
 alias removelatlong='exiftool -gps:all= -xmp:geotag= -overwrite_original'
+# debian package: poppler-utils
+alias pdftojpg='pdftoppm -jpeg -r 300'
